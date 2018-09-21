@@ -1,0 +1,16 @@
+.ll-tab {
+  width: 350px;
+  margin: 0 auto 12px;
+  &__item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    line-height: 16px;
+    font-size: 12px;
+    height: 76px;
+    width: 76px;
+    border: 1px solid #ccc;
+    margin: 0 auto;
+  }
+}

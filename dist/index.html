@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+  <link rel="stylesheet" href="./style.css">
+  <style>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
+  main {
+    padding: 16px;
+  }</style>
+</head>
+<body>
+<main>
+
+<section>
+  <div id="js-letterList" class="ll-body">
+    <div class="ll-tab">
+      <div><div class="ll-tab__item">ショート<br>サイクル</div></div>
+      <div><div class="ll-tab__item">ロング<br>サイクル</div></div>
+      <div><div class="ll-tab__item">年間</div></div>
+      <div><div class="ll-tab__item">プログ<br>レス</div></div>
+    </div>
+    <div class="ll-content">
+      <div>
+        <div class="ll-content__area bg-short">
+          <div class="ll-content__title">ショートサイクル</div>
+          <ul v-for="item in list" :key="item.id">
+            <li class="ll-content__item"><a :href="item.page">
+              <div class="ll-content__date">
+                <span>{{ item.period }}</span>
+              </div>
+              <div class="ll-content__text">
+                <span>{{ item.menu_name }}</span>
+              </div>
+              <div class="ll-content__planetNote" :class="item.image_pickup">
+                <span>星が移動しました</span>
+              </div>
+              <div class="ll-content__listUpdate">
+                <span><img src="http://mei.cocoloni.jp/image/icon/stamp_new.sp.480.png" alt=""></span>
+              </div>
+            </a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div>
+        <div class="ll-content__area bg-long">
+          <div class="ll-content__title">ロングサイクル</div>
+          <ul>
+            <li class="ll-content__item"><a href="#">
+              <div class="ll-content__date">
+                <span>2018-09-14</span>
+              </div>
+              <div class="ll-content__text">
+                <span>今月の対人運は？</span>
+              </div>
+              <div class="ll-content__planetNote">
+                <span>星が移動しました</span>
+              </div>
+              <div class="ll-content__listUpdate">
+                <span><img src="#" alt=""></span>
+              </div>
+            </a></li>
+            <li class="ll-content__item"><a href="#"></a></li>
+            <li class="ll-content__item"><a href="#"></a></li>
+            <li class="ll-content__item"><a href="#"></a></li>
+            <li class="ll-content__item"><a href="#"></a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div>
+        <div class="ll-content__area bg-year">
+          <div class="ll-content__title">年間</div>
+          <ul>
+            <li class="ll-content__item"><a href="#">
+              <div class="ll-content__date">
+                <span>2018-08-27</span>
+              </div>
+              <div class="ll-content__text">
+                <span>今日の月が教えてくれる最適な過ごし方</span>
+              </div>
+              <div class="ll-content__planetNote">
+                <span>星が移動しました</span>
+              </div>
+              <div class="ll-content__listUpdate">
+                <span><img src="#" alt=""></span>
+              </div>
+            </a></li>
+            <li class="ll-content__item"><a href="#">
+              <div class="ll-content__date">
+                <span>2018-08-27</span>
+              </div>
+              <div class="ll-content__text">
+                <span>今日の月が教えてくれる最適な過ごし方</span>
+              </div>
+              <div class="ll-content__planetNote">
+                <span>星が移動しました</span>
+              </div>
+              <div class="ll-content__listUpdate">
+                <span><img src="#" alt=""></span>
+              </div>
+            </a></li>
+            <li class="ll-content__item"><a href="#">
+              <div class="ll-content__date">
+                <span>2018-08-27</span>
+              </div>
+              <div class="ll-content__text">
+                <span>今日の月が教えてくれる最適な過ごし方</span>
+              </div>
+              <div class="ll-content__planetNote">
+                <span>星が移動しました</span>
+              </div>
+              <div class="ll-content__listUpdate">
+                <span><img src="#" alt=""></span>
+              </div>
+            </a></li>
+            <li class="ll-content__item"><a href="#">
+              <div class="ll-content__date">
+                <span>2018-08-27</span>
+              </div>
+              <div class="ll-content__text">
+                <span>今日の月が教えてくれる最適な過ごし方</span>
+              </div>
+              <div class="ll-content__planetNote">
+                <span>星が移動しました</span>
+              </div>
+              <div class="ll-content__listUpdate">
+                <span><img src="#" alt=""></span>
+              </div>
+            </a></li>
+            <li class="ll-content__item"><a href="#">
+              <div class="ll-content__date">
+                <span>2018-08-27</span>
+              </div>
+              <div class="ll-content__text">
+                <span>今日の月が教えてくれる最適な過ごし方</span>
+              </div>
+              <div class="ll-content__planetNote">
+                <span>星が移動しました</span>
+              </div>
+              <div class="ll-content__listUpdate">
+                <span><img src="#" alt=""></span>
+              </div>
+            </a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div>
+        <div class="ll-content__area bg-prog">
+          <div class="ll-content__title">プログレス</div>
+          <ul>
+            <li class="ll-content__item"><a href="#">
+              <div class="ll-content__date">
+                <span>2018-09-21</span>
+              </div>
+              <div class="ll-content__text">
+                <span>今日の月が教えてくれる最適な過ごし方</span>
+              </div>
+              <div class="ll-content__planetNote">
+                <span>星が移動しました</span>
+              </div>
+              <div class="ll-content__listUpdate">
+                <span><img src="#" alt=""></span>
+              </div>
+            </a></li>
+            <li class="ll-content__item"><a href="#"></a></li>
+            <li class="ll-content__item"><a href="#"></a></li>
+            <li class="ll-content__item"><a href="#"></a></li>
+            <li class="ll-content__item"><a href="#"></a></li>
+          </ul>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+<pre>
+[%FOREACH p=pickup%]
+{
+  "image": "[%p.image%]",
+  "menu_name": "[% p.menu_name %]",
+  "period": "[% p.period %]",
+  "midoku": "[% p.is_midoku %]",
+  "page": "t.cgi?t=[%p.page%]&menu_id=[%p.menu_id%]&<!--DEF_P-->",
+  "menu_id": "[%p.menu_id%]",
+  "image_pickup": "[%p.image_pickup%]",
+},
+[%END%]
+</pre>
+    
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="https://code.jquery.com/jquery-3.0.0.js"></script>
+<script src="https://code.jquery.com/jquery-migrate-3.0.0.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+<script>
+new Vue({
+  el: '#js-letterList',
+  data: {
+    list: [
+    [%FOREACH p=pickup%]
+    {
+      "image": "[%p.image%]",
+      "menu_name": "[% p.menu_name %]",
+      "period": "[% p.period %]",
+      "midoku": "[% p.is_midoku %]",
+      "page": "t.cgi?t=[%p.page%]&menu_id=[%p.menu_id%]&<!--DEF_P-->",
+      "menu_id": "[%p.menu_id%]",
+      "image_pickup": "[%p.image_pickup%]",
+    },
+    [%END%]
+    ]
+  },
+  methods: {
+    isSelect: function (num) {
+      this.isActive = num;
+    }
+  }
+})
+
+
+$('#js-letterList .ll-content').slick({
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  arrows: false,
+  fade: true,
+  swipe: false,
+  asNavFor: '#js-letterList .ll-tab'
+});
+$('#js-letterList .ll-tab').slick({
+  slidesToShow: 4,
+  // slidesToScroll: 1,
+  asNavFor: '#js-letterList .ll-content',
+  dots: false,
+  centerMode: false,
+  focusOnSelect: true
+});
+
+
+</script>
+</body>
+</html>
