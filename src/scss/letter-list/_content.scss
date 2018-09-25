@@ -1,10 +1,14 @@
 .ll-content {
   &__area {
     padding: 12px;
+    min-height: 640px;
     .bg-short & {background-color: #CAC5ED;}
     .bg-long & {background-color: #95dede;}
     .bg-year & {background-color: #ead97b;}
     .bg-prog & {background-color: #d4b4df;}
+    ul {
+      margin-bottom: 0;
+    }
   }
   &__title {
     padding-top: 16px;
