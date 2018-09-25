@@ -1,9 +1,10 @@
 .ll-content {
   &__area {
-    background-color: #CAC5ED;
     padding: 12px;
-    ul {
-    }
+    .bg-short & {background-color: #CAC5ED;}
+    .bg-long & {background-color: #95dede;}
+    .bg-year & {background-color: #ead97b;}
+    .bg-prog & {background-color: #d4b4df;}
   }
   &__title {
     padding-top: 16px;
@@ -46,6 +47,27 @@
     justify-content: center;
     align-items: center;
     color: #5BC3C9;
+    span {
+      &:before {
+        content: "";
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 130px;
+        height: 20px;
+      }
+    }
+    &.planet_01 span:before {content: "";}
+    &.planet_02 span:before {content: "地球が移動しました";}
+    &.planet_03 span:before {content: "";}
+    &.planet_04 span:before {content: "水星が移動しました";}
+    &.planet_05 span:before {content: "金星が移動しました";}
+    &.planet_06 span:before {content: "火星が移動しました";}
+    &.planet_07 span:before {content: "木星が移動しました";}
+    &.planet_08 span:before {content: "土星が移動しました";}
+    &.planet_09 span:before {content: "天王星が移動しました";}
+    &.planet_10 span:before {content: "海王星が移動しました";}
+    &.planet_11 span:before {content: "冥王星が移動しました";}
   }
   &__listUpdate {
     position: absolute;
