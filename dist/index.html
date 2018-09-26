@@ -33,7 +33,7 @@
     <div class="ll-content">
       <div v-for="( loop, index ) in 4" :class=" llContentArea(index) ">
         <div class="ll-content__area">
-          <div class="ll-content__title">{{ llContentTitle(index) }}</div>
+          <div class="ll-content__title" v-html="llContentTitle(index)"></div>
           <ul>
             <li class="ll-content__item" v-for="( item, key ) in list" v-if="item.image - 1 == index"><a :href="item.page">
               <div class="ll-content__date">
@@ -306,7 +306,7 @@ new Vue({
     },
     llContentTitle: function(index) {
       if( index == 0 ) {
-        return "ショートサイクル";
+        return "ショートサイクル<br><span>～数日間から一ヶ月～</span>";
       } else if( index == 1 ) {
         return "ロングサイクル";
       } else if( index == 2 ) {
