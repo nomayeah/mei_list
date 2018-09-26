@@ -17,7 +17,55 @@
   }
   main {
     padding: 16px;
-  }</style>
+  }
+
+  /*2018/09/25*/
+  section #js-letterList {
+      margin-top: 83px;
+  }
+
+  .slick-slide .ll-tab__item{
+      background-repeat:  no-repeat;
+      background-size: 100%;
+      background-position:  center;
+      height: 66px;
+      width: 100%;
+      border: 0;
+      color:#fff;
+  }
+  .slick-slide[data-slick-index="0"] .ll-tab__item {
+      background-image: url("/image/tab/tab_short.sp.480.png");
+  }
+  .slick-slide[data-slick-index="1"] .ll-tab__item {
+      background-image: url("/image/tab/tab_long.sp.480.png");
+  }
+  .slick-slide[data-slick-index="2"] .ll-tab__item {
+      background-image: url("/image/tab/tab_year.sp.480.png");
+  }
+  .slick-slide[data-slick-index="3"] .ll-tab__item {
+      background-image: url("/image/tab/tab_pro.sp.480.png");
+  }
+
+  .slick-slide.slick-active {
+      outline: 0;
+  }
+
+  @media (max-width:320px){
+    .ll-tab .slick-slide{
+        width: 82px !important;
+    }
+  }
+
+  .ll-content__title {
+      border:  1px solid #fff;
+      border-left: 0;
+      border-right: 0;
+      font-size: 18px;
+      padding-bottom:  16px;
+  }
+
+</style>
+
 </head>
 <body>
 <main>
@@ -69,7 +117,7 @@
 },
 [%END%]
 </pre>
-    
+
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
