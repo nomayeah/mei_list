@@ -79,24 +79,42 @@
       <div><div class="ll-tab__item">プログ<br>レス</div></div>
     </div>
     <div class="ll-content">
-      <div v-for="( loop, index ) in 4" :class=" llContentArea(index) ">
+      <div v-for="( loop, index ) in 4" :class="llContentArea(index)">
         <div class="ll-content__area">
           <div class="ll-content__title" v-html="llContentTitle(index)"></div>
           <ul>
-            <li class="ll-content__item" v-for="( item, key ) in list" v-if="item.image - 1 == index"><a :href="item.page">
-              <div class="ll-content__date">
-                <span>{{ item.period }}</span>
-              </div>
-              <div class="ll-content__text">
-                <span>{{ item.menu_name }}</span>
-              </div>
-              <div class="ll-content__planetNote" :class="item.image_pickup">
-                <span></span>
-              </div>
-              <div class="ll-content__listUpdate" v-if="item.midoku == 0">
-                <span><img src="http://mei.cocoloni.jp/image/icon/stamp_new.sp.480.png" alt="" /></span>
-              </div>
-            </a></li>
+            <li class="ll-content__item" v-for="( item, key ) in list" v-if="key < 6">
+              <a :href="item.page">
+                <div class="ll-content__date">
+                  <span>{{ item.period }}</span>
+                </div>
+                <div class="ll-content__text">
+                  <span>{{ item.menu_name }}</span>
+                </div>
+                <div class="ll-content__planetNote" :class="item.image_pickup">
+                  <span></span>
+                </div>
+                <div class="ll-content__listUpdate" v-if="item.midoku == 0">
+                  <span><img src="http://mei.cocoloni.jp/image/icon/stamp_new.sp.480.png" alt="" /></span>
+                </div>
+              </a>
+            </li>
+            <li class="ll-content__item" v-for="( item, key ) in list" v-else-if="item.image == index">
+              <a :href="item.page">
+                <div class="ll-content__date">
+                  <span>{{ item.period }}</span>
+                </div>
+                <div class="ll-content__text">
+                  <span>{{ item.menu_name }}</span>
+                </div>
+                <div class="ll-content__planetNote" :class="item.image_pickup">
+                  <span></span>
+                </div>
+                <div class="ll-content__listUpdate" v-if="item.midoku == 0">
+                  <span><img src="http://mei.cocoloni.jp/image/icon/stamp_new.sp.480.png" alt="" /></span>
+                </div>
+              </a>
+            </li>
           </ul>
         </div>
       </div>
@@ -110,7 +128,8 @@
   "image": "[%p.image%]",
   "menu_name": "[% p.menu_name %]",
   "period": "[% p.period %]",
-  "midoku": "[% p.is_midoku %]",
+  "kidoku": "[% p.is_midoku %]",
+  "new": "[% p.is_midoku %]",
   "page": "t.cgi?t=[%p.page%]&menu_id=[%p.menu_id%]&<!--DEF_P-->",
   "menu_id": "[%p.menu_id%]",
   "image_pickup": "[%p.image_pickup%]",
@@ -126,30 +145,6 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
 <script>
-// new Vue({
-//   el: '#js-letterList',
-//   data: {
-//     list: [
-//     [%FOREACH p=pickup%]
-//     {
-//       "image": "[%p.image%]",
-//       "menu_name": "[% p.menu_name %]",
-//       "period": "[% p.period %]",
-//       "midoku": "[% p.is_midoku %]",
-//       "page": "t.cgi?t=[%p.page%]&menu_id=[%p.menu_id%]&<!--DEF_P-->",
-//       "menu_id": "[%p.menu_id%]",
-//       "image_pickup": "[%p.image_pickup%]",
-//     },
-//     [%END%]
-//     ]
-//   },
-//   methods: {
-//     isSelect: function (num) {
-//       this.isActive = num;
-//     }
-//   }
-// })
-
 
 new Vue({
   el: '#js-letterList',
@@ -334,13 +329,9 @@ new Vue({
         "menu_id": "314",
         "image_pickup": "planet_06",
       },
-
-    ]
+    ],
   },
   methods: {
-    isSelect: function (num) {
-      this.isActive = num;
-    },
     llContentArea: function(index) {
       if( index == 0 ) {
         return "bg-short";
@@ -349,7 +340,7 @@ new Vue({
       } else if( index == 2 ) {
         return "bg-year";
       } else {
-        return "bg-prog"
+        return "bg-prog";
       }
     },
     llContentTitle: function(index) {
@@ -360,10 +351,10 @@ new Vue({
       } else if( index == 2 ) {
         return "年間";
       } else {
-        return "プログレス"
+        return "プログレス";
       }
     },
-  }
+  },
 });
 
 $('#js-letterList .ll-content').slick({
@@ -372,7 +363,7 @@ $('#js-letterList .ll-content').slick({
   arrows: false,
   fade: true,
   swipe: false,
-  // adaptiveHeight: true,
+  adaptiveHeight: true,
   asNavFor: '#js-letterList .ll-tab'
 });
 $('#js-letterList .ll-tab').slick({
@@ -382,6 +373,12 @@ $('#js-letterList .ll-tab').slick({
   dots: false,
   centerMode: false,
   focusOnSelect: true
+});
+
+$(function() {
+  $('.ll-content__item').on('click', function() {
+    localStorage.setItem("listId_name", JSON.stringify(this.listId_name));
+  })
 });
 
 
