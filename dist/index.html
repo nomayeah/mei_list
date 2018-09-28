@@ -20,7 +20,7 @@
   }
 
   /*2018/09/25*/
-  section #js-letterList {
+  /* section #js-letterList {
     margin-top: 83px;
   }
 
@@ -87,7 +87,7 @@
     background-repeat: no-repeat;
     background-position: bottom,center 0px;
     background-size: 100%,cover;
-  }
+  } */
 </style>
 
 </head>
@@ -97,17 +97,17 @@
 <section>
   <div id="js-letterList" class="ll-body">
     <div class="ll-tab">
-      <div><div class="ll-tab__item">ショート<br>サイクル</div></div>
-      <div><div class="ll-tab__item">ロング<br>サイクル</div></div>
-      <div><div class="ll-tab__item">年間</div></div>
-      <div><div class="ll-tab__item">プログ<br>レス</div></div>
+      <div><div class="ll-tab__item">新着</div></div>
+      <div><div class="ll-tab__item">短期</div></div>
+      <div><div class="ll-tab__item">中期</div></div>
+      <div><div class="ll-tab__item">長期<br></div></div>
     </div>
     <div class="ll-content">
       <div v-for="( loop, index ) in 4" :class="llContentArea(index)">
         <div class="ll-content__area">
           <div class="ll-content__title" v-html="llContentTitle(index)"></div>
-          <ul v-for="( item, key ) in list">
-            <li class="ll-content__item" v-if="key < 6 && index == 0">
+          <ul>
+            <li class="ll-content__item" v-for="( item, key ) in list" v-if="llContentList(index, key)" >
               <a :href="item.page">
                 <div class="ll-content__date">
                   <span>{{ item.period }}</span>
@@ -123,7 +123,11 @@
                 </div>
               </a>
             </li>
-            <li class="ll-content__item" v-else-if="item.image - 1 == index">
+          </ul>
+
+          <div class="ll-content__title" v-html="llContentTitle(index)" v-if="index == 4"></div>
+          <ul>
+            <li class="ll-content__item" v-for="( item, key ) in list" v-if="index == 4" >
               <a :href="item.page">
                 <div class="ll-content__date">
                   <span>{{ item.period }}</span>
@@ -350,15 +354,30 @@ new Vue({
     },
     llContentTitle: function(index) {
       if( index == 0 ) {
+        return "新着<br><span>～数日間から一ヶ月～</span>";
+      } else if ( index == 1 ) {
         return "ショートサイクル<br><span>～数日間から一ヶ月～</span>";
-      } else if( index == 1 ) {
+      } else if ( index == 2 ) {
         return "ロングサイクル";
-      } else if( index == 2 ) {
+      } else if ( index == 3 ) {
         return "年間";
       } else {
         return "プログレス";
       }
     },
+    llContentList: function(index, key) {
+      if (index == 0 && key < 6) {
+        return console.log(0)
+      } else if (index == 1 && this.list[key].image == 2) {
+        return console.log(1)
+      } else if (index == 2 && this.list[key].image == 3) {
+        return console.log(2)
+      } else if (index == 3 || index == 4) {
+        return console.log(3)
+      } else {
+        return
+      }
+    }
   },
 });
 $('#js-letterList .ll-content').slick({
@@ -378,11 +397,7 @@ $('#js-letterList .ll-tab').slick({
   centerMode: false,
   focusOnSelect: true
 });
-$(function() {
-  $('.ll-content__item').on('click', function() {
-    localStorage.setItem("listId_name", JSON.stringify(this.listId_name));
-  })
-});
+
 </script>
 </body>
 </html>
