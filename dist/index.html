@@ -34,16 +34,16 @@
     border: 0;
     color:#fff;
   }
-  .ll-tab__item .ll-tab__short {
+  .ll-tab__item.ll-tab__short {
     color: #9686d4;
   }
-  .ll-tab__item .ll-tab__long {
+  .ll-tab__item.ll-tab__long {
     color: #5BC3C9;
   }
-  .ll-tab__item .ll-tab__middle {
+  .ll-tab__item.ll-tab__middle {
     color: #75ABEB;
   }
-  .ll-tab__item .ll-tab__update {
+  .ll-tab__item.ll-tab__update {
     color: #4F4F4F;
   }
 
@@ -97,10 +97,10 @@
 <section>
   <div id="js-letterList" class="ll-body">
     <div class="ll-tab">
-      <div><div class="ll-tab__item">ショート<br>サイクル</div></div>
-      <div><div class="ll-tab__item">ロング<br>サイクル</div></div>
-      <div><div class="ll-tab__item">年間</div></div>
-      <div><div class="ll-tab__item">プログ<br>レス</div></div>
+      <div><div class="ll-tab__item ll-tab__update">新着</div></div>
+      <div><div class="ll-tab__item ll-tab__short">短期</div></div>
+      <div><div class="ll-tab__item ll-tab__middle">中期</div></div>
+      <div><div class="ll-tab__item ll-tab__long">長期／<br>心の変化</div></div>
     </div>
     <div class="ll-content">
       <div v-for="( loop, index ) in 4" :class="llContentArea(index)">
