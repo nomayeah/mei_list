@@ -21,121 +21,145 @@
 
   /*2018/09/25*/
   section #js-letterList {
-      margin-top: 83px;
+    margin-top: 83px;
   }
 
-  .slick-slide .ll-tab__item{
-      background-repeat:  no-repeat;
-      background-size: 100%;
-      background-position:  center;
-      height: 66px;
-      width: 100%;
-      border: 0;
-      color:#fff;
+  .ll-tab__item{
+    background-image: url(/image/tab/tab_off.sp.480.png);
+    background-repeat:  no-repeat;
+    background-size: 100%;
+    background-position:  center;
+    height: 66px;
+    width: 100%;
+    border: 0;
+    color:#fff;
   }
-  .slick-slide[data-slick-index="0"] .ll-tab__item {
-      background-image: url("/image/tab/tab_short.sp.480.png");
+  .ll-tab__item .ll-tab__short {
+    color: #9686d4;
   }
-  .slick-slide[data-slick-index="1"] .ll-tab__item {
-      background-image: url("/image/tab/tab_long.sp.480.png");
+  .ll-tab__item .ll-tab__long {
+    color: #5BC3C9;
   }
-  .slick-slide[data-slick-index="2"] .ll-tab__item {
-      background-image: url("/image/tab/tab_year.sp.480.png");
+  .ll-tab__item .ll-tab__middle {
+    color: #75ABEB;
   }
-  .slick-slide[data-slick-index="3"] .ll-tab__item {
-      background-image: url("/image/tab/tab_pro.sp.480.png");
+  .ll-tab__item .ll-tab__update {
+    color: #4F4F4F;
   }
 
   .slick-slide.slick-active {
-      outline: 0;
+    outline: 0;
   }
 
   @media (max-width:320px){
     .ll-tab .slick-slide{
-        width: 82px !important;
+      width: 82px !important;
     }
   }
 
   .ll-content__title {
-      border:  1px solid #fff;
-      border-left: 0;
-      border-right: 0;
-      font-size: 18px;
-      padding-bottom:  16px;
+    border:  1px solid #fff;
+    border-left: 0;
+    border-right: 0;
+    font-size: 18px;
+    padding-bottom:  16px;
   }
 
+
+  .ll-body::before {
+    content:  "";
+    position: absolute;
+    background: url(/image/banner/impact.sp.480.png),linear-gradient( 0deg, transparent 50%, #fcf9e8 50%);
+    display: block;
+    background-size:  contain;
+    background-repeat:  no-repeat;
+    background-position: center;
+    width: 100%;
+    padding-bottom: 10%;
+    top: -16px;
+  }
+
+  .ll-body {
+    position: relative;
+    background-image: url(/image/line/line_bottom.sp.480.png),url(/image/bgimg/impact_base.sp.480.png);
+    padding-top: 15%;
+    padding-bottom: 30px;
+    background-repeat: no-repeat;
+    background-position: bottom,center 0px;
+    background-size: 100%,cover;
+  }
 </style>
 
 </head>
 <body>
 <main>
 
-<section>
-  <div id="js-letterList" class="ll-body">
-    <div class="ll-tab">
-      <div><div class="ll-tab__item">ショート<br>サイクル</div></div>
-      <div><div class="ll-tab__item">ロング<br>サイクル</div></div>
-      <div><div class="ll-tab__item">年間</div></div>
-      <div><div class="ll-tab__item">プログ<br>レス</div></div>
-    </div>
-    <div class="ll-content">
-      <div v-for="( loop, index ) in 4" :class="llContentArea(index)">
-        <div class="ll-content__area">
-          <div class="ll-content__title" v-html="llContentTitle(index)"></div>
-          <ul>
-            <li class="ll-content__item" v-for="( item, key ) in list" v-if="key < 6">
-              <a :href="item.page">
-                <div class="ll-content__date">
-                  <span>{{ item.period }}</span>
-                </div>
-                <div class="ll-content__text">
-                  <span>{{ item.menu_name }}</span>
-                </div>
-                <div class="ll-content__planetNote" :class="item.image_pickup">
-                  <span></span>
-                </div>
-                <div class="ll-content__listUpdate" v-if="item.midoku == 0">
-                  <span><img src="http://mei.cocoloni.jp/image/icon/stamp_new.sp.480.png" alt="" /></span>
-                </div>
-              </a>
-            </li>
-            <li class="ll-content__item" v-for="( item, key ) in list" v-else-if="item.image == index">
-              <a :href="item.page">
-                <div class="ll-content__date">
-                  <span>{{ item.period }}</span>
-                </div>
-                <div class="ll-content__text">
-                  <span>{{ item.menu_name }}</span>
-                </div>
-                <div class="ll-content__planetNote" :class="item.image_pickup">
-                  <span></span>
-                </div>
-                <div class="ll-content__listUpdate" v-if="item.midoku == 0">
-                  <span><img src="http://mei.cocoloni.jp/image/icon/stamp_new.sp.480.png" alt="" /></span>
-                </div>
-              </a>
-            </li>
-          </ul>
+  <section>
+    <div id="js-letterList" class="ll-body">
+      <div class="ll-tab">
+        <div><div class="ll-tab__item">ショート<br>サイクル</div></div>
+        <div><div class="ll-tab__item">ロング<br>サイクル</div></div>
+        <div><div class="ll-tab__item">年間</div></div>
+        <div><div class="ll-tab__item">プログ<br>レス</div></div>
+      </div>
+      <div class="ll-content">
+        <div v-for="( loop, index ) in 4" :class="llContentArea(index)">
+          <div class="ll-content__area">
+            <div class="ll-content__title" v-html="llContentTitle(index)"></div>
+            <ul>
+              <li class="ll-content__item" v-for="( item, key ) in list" v-if="key < 6">
+                <a :href="item.page">
+                  <div class="ll-content__date">
+                    <span>{{ item.period }}</span>
+                  </div>
+                  <div class="ll-content__text">
+                    <span>{{ item.menu_name }}</span>
+                  </div>
+                  <div class="ll-content__planetNote" :class="item.image_pickup">
+                    <span></span>
+                  </div>
+                  <div class="ll-content__listUpdate" v-if="item.midoku == 0">
+                    <span><img src="http://mei.cocoloni.jp/image/icon/stamp_new.sp.480.png" alt="" /></span>
+                  </div>
+                </a>
+              </li>
+              <li class="ll-content__item" v-for="( item, key ) in list" v-else-if="item.image == index">
+                <a :href="item.page">
+                  <div class="ll-content__date">
+                    <span>{{ item.period }}</span>
+                  </div>
+                  <div class="ll-content__text">
+                    <span>{{ item.menu_name }}</span>
+                  </div>
+                  <div class="ll-content__planetNote" :class="item.image_pickup">
+                    <span></span>
+                  </div>
+                  <div class="ll-content__listUpdate" v-if="item.midoku == 0">
+                    <span><img src="http://mei.cocoloni.jp/image/icon/stamp_new.sp.480.png" alt="" /></span>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<pre>
-[%FOREACH p=pickup%]
-{
-  "image": "[%p.image%]",
-  "menu_name": "[% p.menu_name %]",
-  "period": "[% p.period %]",
-  "kidoku": "[% p.is_midoku %]",
-  "new": "[% p.is_midoku %]",
-  "page": "t.cgi?t=[%p.page%]&menu_id=[%p.menu_id%]&<!--DEF_P-->",
-  "menu_id": "[%p.menu_id%]",
-  "image_pickup": "[%p.image_pickup%]",
-},
-[%END%]
-</pre>
+  <pre>
+    [%FOREACH p=pickup%]
+    {
+      "image": "[%p.image%]",
+      "menu_name": "[% p.menu_name %]",
+      "period": "[% p.period %]",
+      "kidoku": "[% p.is_midoku %]",
+      "new": "[% p.is_midoku %]",
+      "page": "t.cgi?t=[%p.page%]&menu_id=[%p.menu_id%]&<!--DEF_P-->",
+      "menu_id": "[%p.menu_id%]",
+      "image_pickup": "[%p.image_pickup%]",
+    },
+    [%END%]
+  </pre>
 
 </main>
 
@@ -145,7 +169,6 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
 <script>
-
 new Vue({
   el: '#js-letterList',
   data: {
@@ -159,7 +182,6 @@ new Vue({
         "menu_id": "309",
         "image_pickup": "planet_08",
       },
-
       {
         "image": "1",
         "menu_name": "今日の月が教えてくれる最適な過ごし方",
@@ -169,7 +191,6 @@ new Vue({
         "menu_id": "313",
         "image_pickup": "planet_03",
       },
-
       {
         "image": "1",
         "menu_name": "今日の月が教えてくれる全体的なムード",
@@ -179,7 +200,6 @@ new Vue({
         "menu_id": "315",
         "image_pickup": "planet_03",
       },
-
       {
         "image": "4",
         "menu_name": "ここ半年以上、不調続き。どう過ごせば改善できる？",
@@ -189,7 +209,6 @@ new Vue({
         "menu_id": "402",
         "image_pickup": "planet_03",
       },
-
       {
         "image": "4",
         "menu_name": "大きく変わってしまったあの人。今のあの人の心境は？",
@@ -199,7 +218,6 @@ new Vue({
         "menu_id": "403",
         "image_pickup": "planet_03",
       },
-
       {
         "image": "1",
         "menu_name": "今月の対人運は？",
@@ -209,7 +227,6 @@ new Vue({
         "menu_id": "304",
         "image_pickup": "planet_04",
       },
-
       {
         "image": "1",
         "menu_name": "今月色々とスランプ気味。今は何をするといい？",
@@ -219,7 +236,6 @@ new Vue({
         "menu_id": "311",
         "image_pickup": "planet_02",
       },
-
       {
         "image": "1",
         "menu_name": "今月のあなたの運勢とテーマ",
@@ -229,7 +245,6 @@ new Vue({
         "menu_id": "301",
         "image_pickup": "planet_02",
       },
-
       {
         "image": "1",
         "menu_name": "仕事では何をするのに適したとき？",
@@ -239,7 +254,6 @@ new Vue({
         "menu_id": "303",
         "image_pickup": "planet_02",
       },
-
       {
         "image": "4",
         "menu_name": "今期のあなたの心理と大切な裏テーマ",
@@ -249,7 +263,6 @@ new Vue({
         "menu_id": "401",
         "image_pickup": "planet_03",
       },
-
       {
         "image": "2",
         "menu_name": "恋愛では何をするのに適したとき？",
@@ -259,7 +272,6 @@ new Vue({
         "menu_id": "302",
         "image_pickup": "planet_05",
       },
-
       {
         "image": "2",
         "menu_name": "今月起こりそうな嬉しいことは？",
@@ -269,7 +281,6 @@ new Vue({
         "menu_id": "305",
         "image_pickup": "planet_05",
       },
-
       {
         "image": "2",
         "menu_name": "今月は何を気をつけたらいい？",
@@ -279,7 +290,6 @@ new Vue({
         "menu_id": "306",
         "image_pickup": "planet_06",
       },
-
       {
         "image": "3",
         "menu_name": "今年訪れやすいチャンスや幸運",
@@ -289,7 +299,6 @@ new Vue({
         "menu_id": "307",
         "image_pickup": "planet_07",
       },
-
       {
         "image": "3",
         "menu_name": "今年幸運を掴むためにすべきこと",
@@ -299,7 +308,6 @@ new Vue({
         "menu_id": "308",
         "image_pickup": "planet_07",
       },
-
       {
         "image": "3",
         "menu_name": "今年試練を克服するためにすべきこと",
@@ -309,7 +317,6 @@ new Vue({
         "menu_id": "310",
         "image_pickup": "planet_08",
       },
-
       {
         "image": "2",
         "menu_name": "急に感じが悪くなったあの人。その理由は？",
@@ -319,7 +326,6 @@ new Vue({
         "menu_id": "312",
         "image_pickup": "planet_06",
       },
-
       {
         "image": "2",
         "menu_name": "最近イライラ続き。一体何が原因？",
@@ -356,7 +362,6 @@ new Vue({
     },
   },
 });
-
 $('#js-letterList .ll-content').slick({
   slidesToShow: 1,
   slidesToScroll: 1,
@@ -374,14 +379,11 @@ $('#js-letterList .ll-tab').slick({
   centerMode: false,
   focusOnSelect: true
 });
-
 $(function() {
   $('.ll-content__item').on('click', function() {
     localStorage.setItem("listId_name", JSON.stringify(this.listId_name));
   })
 });
-
-
 </script>
 </body>
 </html>
