@@ -37,4 +37,14 @@
       a::after {content: "今の心境";border-color: #d4b4df;color: #d4b4df;}
     }
   }
+
+  &-short ul{
+    border-color: #9686D4;
+  }
+  &-long ul{
+    border-color: #5BC3C9;
+  }
+  &-year ul{
+    border-color: #75ABEB;
+  }
 }

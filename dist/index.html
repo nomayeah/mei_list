@@ -97,10 +97,10 @@
 <section>
   <div id="js-letterList" class="ll-body">
     <div class="ll-tab">
-      <div><div class="ll-tab__item">新着</div></div>
-      <div><div class="ll-tab__item">短期</div></div>
-      <div><div class="ll-tab__item">中期</div></div>
-      <div><div class="ll-tab__item">長期<br></div></div>
+      <div><div class="ll-tab__item ll-tab__new">新着</div></div>
+      <div><div class="ll-tab__item ll-tab__short">短期</div></div>
+      <div><div class="ll-tab__item ll-tab__long">中期</div></div>
+      <div><div class="ll-tab__item ll-tab__year">長期<br></div></div>
     </div>
     <div class="ll-content">
       <div v-for="( loop, index ) in 5" :class="llContentArea(index)">
@@ -159,11 +159,11 @@
                 </div>
                 <div class="ll-content__planetNote" :class="item.list_number_pickup">
                   <span></span>
-                </div>  
+                </div>
               </a>
             </li>
           </ul>
-  
+
         </div>
       </div>
     </div>
@@ -438,7 +438,7 @@ new Vue({
       } else {
         return
       }
-    }, 
+    },
   }
 });
 
