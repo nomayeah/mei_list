@@ -51,6 +51,49 @@
     .cate-short & {background-color: #9686D4;}
     .cate-long & {background-color: #5BC3C9;}
     .cate-year & {background-color: #75ABEB;}
+    p {
+      margin: 0;
+    }
+    .ll-date__year {
+      font-size: 8px;
+      display: inline-block;
+      margin-right: 8px;
+      position: relative;
+      &::after {
+        content: "/";
+        display: inline;
+        font-size: 8px;
+        position: absolute;
+        top: -1px;
+        right: -6px;
+      }
+    }
+    .ll-date__month {
+      display: inline-block;
+      margin-right: 10px;
+      position: relative;
+      &:last-child {
+        margin: 0;
+        &::after {
+          display: none;
+        }
+      }
+      &::after {
+        content: "-";
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        font-size: 8px;
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: -10px;
+        margin: auto;
+      }
+    }
   }
   &__planetNote {
     position: absolute;
