@@ -9,6 +9,9 @@
   &-year ul{
     border-color: #75ABEB;
   }
+  &-new ul li.ll-content__item {
+    border-color: #828282;
+  }
 }
 
 //body
@@ -24,7 +27,7 @@
   &::before {
     content:  "";
     position: absolute;
-    background: url(/image/banner/impact.sp.480.png),linear-gradient( 0deg, transparent 50%, #fcf9e8 50%);
+    background: url(/image/banner/impact_main_menu.sp.480.png);
     display: block;
     background-size:  contain;
     background-repeat:  no-repeat;
@@ -54,7 +57,26 @@
   }
   &__title {
     font-size: 18px;
-    padding-bottom:  16px;
+    padding-bottom:  0px;
+    padding-top: 0px;
+  }
+  &__planetNote span{
+    &::before {
+      content: "";
+      display: block;
+      width: 54px;
+      height: 24px;
+      background-color: transparent;
+      background-image: url(/image/bgimg/planet_bg.sp.480.png);
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      .cate-prog &{
+        width: 80px;
+        height: 24px;
+        background-image: url(/image/bgimg/planet_bg_long.sp.480.png);
+      }
+    }
   }
 }
 
@@ -62,11 +84,14 @@
 .ll-tab{
   width: 360px;
   .ll-tab__item{
-    background-color: #fff;
-    height: 66px;
+    background-image: url(/image/tab/tab_off.sp.480.png);
+    background-size: 90px 43px;
+    background-repeat: no-repeat;
+    height: 45px;
     width: 100%;
     border: 1px solid #828282;
     color: #000;
+    font-size: 14px;
     &.ll-tab{
       &__new {
         border-radius:6px 0 0 6px;
@@ -83,13 +108,36 @@
         color: #75ABEB;
       }
     }
+    &.ll-tab__new,
+    &.ll-tab__short,
+    &.ll-tab__long{
+      border-right:0;
+    }
   }
 }
 
-.ll-body .ll-tab__item.ll-tab__new,
-.ll-body .ll-tab__item.ll-tab__short,
-.ll-body .ll-tab__item.ll-tab__long{
-  border-right:0;
+.slick-current.slick-active .ll-tab__item {
+  background-size: 90px 43px;
+  background-repeat: no-repeat;
+  font-size: 18px;
+  color: #fff;
+  @media (max-width:320px){
+    background-size: 77.5px 43px;
+  }
+  &.ll-tab{
+    &__new {
+      background-image: url(/image/tab/tab_new_on.sp.480.png);
+    }
+    &__short {
+      background-image: url(/image/tab/tab_short_on.sp.480.png);
+    }
+    &__long {
+      background-image: url(/image/tab/tab_middle_on.sp.480.png);
+    }
+    &__year {
+      background-image: url(/image/tab/tab_long_on.sp.480.png);
+    }
+  }
 }
 
 .slick-slide {
@@ -99,8 +147,14 @@
   }
 }
 
-@media (max-width:320px){
+@media (min-width:320px) and (max-width:374px){
   .ll-tab .slick-slide{
-    width: 82px !important;
+    width: 77.5px !important;
+  }
+  .ll-body > .ll-tab{
+    width: 310px !important;
+  }
+  .ll-content__area {
+    padding: 5px;
   }
 }
