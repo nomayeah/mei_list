@@ -188,6 +188,7 @@
           <ul v-if="index == 3">
             <li class="ll-content__item" v-for="( item, key ) in list" v-if="item.list_number == index + 1" :class="llContentCategory(item.list_number)">
               <a :href="item.page">
+                <div class="ll-content__date"></div>
                 <div class="ll-content__text">
                   <span>{{ item.menu_name }}</span>
                 </div>
