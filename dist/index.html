@@ -136,11 +136,11 @@
       <div><div class="ll-tab__item ll-tab__long">中期</div></div>
       <div><div class="ll-tab__item ll-tab__year">長期<br></div></div>
     </div>
-    <div class="ll-content">
+    <div class="ll-content"><!-- 新着と短期中期と長期は出力方法が違う -->
       <div v-for="( loop, index ) in 5" :class="llContentArea(index)">
         <div class="ll-content__area">
           <div class="ll-content__title" v-html="llContentTitle(index)"></div>
-          <ul v-if="index == 0">
+          <ul v-if="index == 0"><!-- 新着 -->
             <li class="ll-content__item" v-for="( item, key ) in list" v-if="item.planet_move == 1" :class="llContentCategory(item.list_number)">
               <a :href="item.page" :class="llContentRead(item.midoku)">
                 <div class="ll-content__date" v-html="item.period"></div>
@@ -148,7 +148,8 @@
                   <span>{{ item.menu_name }}</span>
                 </div>
                 <div class="ll-content__planetNote" :class="item.image_pickup">
-                  <span></span>
+                  <span v-if="list.planet_move == 1" class="planet_active"></span>
+                  <span v-else></span>
                 </div>
                 <div class="ll-content__listCategory">
                   <span></span>
@@ -162,7 +163,8 @@
                   <span>{{ item.menu_name }}</span>
                 </div>
                 <div class="ll-content__planetNote" :class="item.image_pickup">
-                  <span></span>
+                  <span v-if="list.planet_move == 1" class="planet_active"></span>
+                  <span v-else></span>
                 </div>
                 <div class="ll-content__listCategory">
                   <span></span>
@@ -176,7 +178,8 @@
                   <span>{{ item.menu_name }}</span>
                 </div>
                 <div class="ll-content__planetNote" :class="item.image_pickup">
-                  <span></span>
+                  <span v-if="list.planet_move == 1" class="planet_active"></span>
+                  <span v-else></span>
                 </div>
                 <div class="ll-content__listCategory">
                   <span></span>
@@ -184,7 +187,7 @@
               </a>
             </li>
           </ul>
-          <ul v-else>
+          <ul v-else><!-- 短期、中期、長期 -->
             <li class="ll-content__item" v-for="( item, key ) in list"  v-if="item.list_number == index" :class="llContentCategory(item.list_number)">
               <a :href="item.page" :class="llContentRead(item.midoku)">
                 <div class="ll-content__date" v-html="item.period"></div>
@@ -192,12 +195,13 @@
                   <span>{{ item.menu_name }}</span>
                 </div>
                 <div class="ll-content__planetNote" :class="item.image_pickup">
-                  <span></span>
+                  <span v-if="list.planet_move == 1" class="planet_active"></span>
+                  <span v-else></span>
                 </div>
               </a>
             </li>
           </ul>
-
+          <!-- 長期の場合のみプログレスを出力 -->
           <div class="ll-content__title" v-html="llContentTitle(4)" v-if="index == 3"></div>
           <ul v-if="index == 3">
             <li class="ll-content__item" v-for="( item, key ) in list" v-if="item.list_number == index + 1" :class="llContentCategory(item.list_number)">
@@ -207,7 +211,8 @@
                   <span>{{ item.menu_name }}</span>
                 </div>
                 <div class="ll-content__planetNote" :class="item.image_pickup">
-                  <span></span>
+                  <span v-if="list.planet_move == 1" class="planet_active"></span>
+                  <span v-else></span>
                 </div>
               </a>
             </li>
@@ -228,10 +233,10 @@
   'midoku': '[% p.is_midoku %]',
   'read': '[% p.is_read %]',
   'period': '[% IF p.period1y == "" %]今の心境[% END %]<p><span class="ll-date__year">[% p.period1y IF p.period %]</span><span class="ll-date__month">[% p.period1md IF p.period %]</span><span class="ll-date__year">[% p.period2y IF p.period %]</span><span class="ll-date__month">[% p.period2md IF p.period %]</span></p>',
-//    'period1y': '<span>[% p.period1y IF p.period %]</span>',
-//    'period1md': '<span>[% p.period1md IF p.period %]</span>',
-//    'period2y': '<span>[% p.period2y IF p.period %]</span>',
-//    'period2md': '<span>[% p.period2md IF p.period %]</span>',
+  // 'period1y': '<span>[% p.period1y IF p.period %]</span>',
+  // 'period1md': '<span>[% p.period1md IF p.period %]</span>',
+  // 'period2y': '<span>[% p.period2y IF p.period %]</span>',
+  // 'period2md': '<span>[% p.period2md IF p.period %]</span>',
   'page': 't.cgi?t=[%p.page%]&menu_id=[%p.menu_id%]&<!--DEF_P-->',
   'menu_id': '[%p.menu_id%]',
   'image_pickup': 'planet_[%p.image_pickup%]',
@@ -257,10 +262,10 @@ new Vue({
   'midoku': '1',
   'read': '1',
   'period': '<p><span class="ll-date__year"></span><span class="ll-date__month"></span><span class="ll-date__year"></span><span class="ll-date__month"></span></p>',
-//    'period1y': '<span></span>',
-//    'period1md': '<span></span>',
-//    'period2y': '<span></span>',
-//    'period2md': '<span></span>',
+  // 'period1y': '<span></span>',
+  // 'period1md': '<span></span>',
+  // 'period2y': '<span></span>',
+  // 'period2md': '<span></span>',
   'page': 't.cgi?t=m/fortune2/result&amp;menu_id=401&amp;zspid=wzappallas',
   'menu_id': '401',
   'image_pickup': 'planet_1',
@@ -272,10 +277,10 @@ new Vue({
   'midoku': '1',
   'read': '1',
   'period': '<p><span class="ll-date__year"></span><span class="ll-date__month"></span><span class="ll-date__year"></span><span class="ll-date__month"></span></p>',
-//    'period1y': '<span></span>',
-//    'period1md': '<span></span>',
-//    'period2y': '<span></span>',
-//    'period2md': '<span></span>',
+  // 'period1y': '<span></span>',
+  // 'period1md': '<span></span>',
+  // 'period2y': '<span></span>',
+  // 'period2md': '<span></span>',
   'page': 't.cgi?t=m/fortune2/result&amp;menu_id=402&amp;zspid=wzappallas',
   'menu_id': '402',
   'image_pickup': 'planet_1',
@@ -287,10 +292,10 @@ new Vue({
   'midoku': '0',
   'read': '0',
   'period': '<p><span class="ll-date__year"></span><span class="ll-date__month"></span><span class="ll-date__year"></span><span class="ll-date__month"></span></p>',
-//    'period1y': '<span></span>',
-//    'period1md': '<span></span>',
-//    'period2y': '<span></span>',
-//    'period2md': '<span></span>',
+  // 'period1y': '<span></span>',
+  // 'period1md': '<span></span>',
+  // 'period2y': '<span></span>',
+  // 'period2md': '<span></span>',
   'page': 't.cgi?t=m/fortune2/result&amp;menu_id=403&amp;zspid=wzappallas',
   'menu_id': '403',
   'image_pickup': 'planet_1',
@@ -302,10 +307,10 @@ new Vue({
   'midoku': '0',
   'read': '0',
   'period': '<p><span class="ll-date__year">2016</span><span class="ll-date__month">11/19</span><span class="ll-date__year">2019</span><span class="ll-date__month">3/22</span></p>',
-//    'period1y': '<span>2016</span>',
-//    'period1md': '<span>11/19</span>',
-//    'period2y': '<span>2019</span>',
-//    'period2md': '<span>3/22</span>',
+  // 'period1y': '<span>2016</span>',
+  // 'period1md': '<span>11/19</span>',
+  // 'period2y': '<span>2019</span>',
+  // 'period2md': '<span>3/22</span>',
   'page': 't.cgi?t=m/fortune/result&amp;menu_id=310&amp;zspid=wzappallas',
   'menu_id': '310',
   'image_pickup': 'planet_7',
@@ -317,10 +322,10 @@ new Vue({
   'midoku': '0',
   'read': '0',
   'period': '<p><span class="ll-date__year">2017</span><span class="ll-date__month">12/20</span><span class="ll-date__year">2020</span><span class="ll-date__month">3/21</span></p>',
-//    'period1y': '<span>2017</span>',
-//    'period1md': '<span>12/20</span>',
-//    'period2y': '<span>2020</span>',
-//    'period2md': '<span>3/21</span>',
+  // 'period1y': '<span>2017</span>',
+  // 'period1md': '<span>12/20</span>',
+  // 'period2y': '<span>2020</span>',
+  // 'period2md': '<span>3/21</span>',
   'page': 't.cgi?t=m/fortune/result&amp;menu_id=309&amp;zspid=wzappallas',
   'menu_id': '309',
   'image_pickup': 'planet_7',
@@ -332,10 +337,10 @@ new Vue({
   'midoku': '0',
   'read': '0',
   'period': '<p><span class="ll-date__year">2018</span><span class="ll-date__month">7/14</span><span class="ll-date__year">2019</span><span class="ll-date__month">1/23</span></p>',
-//    'period1y': '<span>2018</span>',
-//    'period1md': '<span>7/14</span>',
-//    'period2y': '<span>2019</span>',
-//    'period2md': '<span>1/23</span>',
+  // 'period1y': '<span>2018</span>',
+  // 'period1md': '<span>7/14</span>',
+  // 'period2y': '<span>2019</span>',
+  // 'period2md': '<span>1/23</span>',
   'page': 't.cgi?t=m/fortune/result&amp;menu_id=308&amp;zspid=wzappallas',
   'menu_id': '308',
   'image_pickup': 'planet_6',
@@ -347,10 +352,10 @@ new Vue({
   'midoku': '1',
   'read': '1',
   'period': '<p><span class="ll-date__year">2018</span><span class="ll-date__month">8/20</span><span class="ll-date__year">2018</span><span class="ll-date__month">12/20</span></p>',
-//    'period1y': '<span>2018</span>',
-//    'period1md': '<span>8/20</span>',
-//    'period2y': '<span>2018</span>',
-//    'period2md': '<span>12/20</span>',
+  // 'period1y': '<span>2018</span>',
+  // 'period1md': '<span>8/20</span>',
+  // 'period2y': '<span>2018</span>',
+  // 'period2md': '<span>12/20</span>',
   'page': 't.cgi?t=m/fortune/result&amp;menu_id=302&amp;zspid=wzappallas',
   'menu_id': '302',
   'image_pickup': 'planet_3',
@@ -362,10 +367,10 @@ new Vue({
   'midoku': '0',
   'read': '0',
   'period': '<p><span class="ll-date__year">2018</span><span class="ll-date__month">8/20</span><span class="ll-date__year">2018</span><span class="ll-date__month">12/20</span></p>',
-//    'period1y': '<span>2018</span>',
-//    'period1md': '<span>8/20</span>',
-//    'period2y': '<span>2018</span>',
-//    'period2md': '<span>12/20</span>',
+  // 'period1y': '<span>2018</span>',
+  // 'period1md': '<span>8/20</span>',
+  // 'period2y': '<span>2018</span>',
+  // 'period2md': '<span>12/20</span>',
   'page': 't.cgi?t=m/fortune/result&amp;menu_id=305&amp;zspid=wzappallas',
   'menu_id': '305',
   'image_pickup': 'planet_3',
@@ -377,10 +382,10 @@ new Vue({
   'midoku': '0',
   'read': '0',
   'period': '<p><span class="ll-date__year">2018</span><span class="ll-date__month">10/19</span><span class="ll-date__year">2018</span><span class="ll-date__month">12/26</span></p>',
-//    'period1y': '<span>2018</span>',
-//    'period1md': '<span>10/19</span>',
-//    'period2y': '<span>2018</span>',
-//    'period2md': '<span>12/26</span>',
+  // 'period1y': '<span>2018</span>',
+  // 'period1md': '<span>10/19</span>',
+  // 'period2y': '<span>2018</span>',
+  // 'period2md': '<span>12/26</span>',
   'page': 't.cgi?t=m/fortune/result&amp;menu_id=304&amp;zspid=wzappallas',
   'menu_id': '304',
   'image_pickup': 'planet_2',
@@ -392,10 +397,10 @@ new Vue({
   'midoku': '0',
   'read': '0',
   'period': '<p><span class="ll-date__year">2018</span><span class="ll-date__month">10/30</span><span class="ll-date__year">2018</span><span class="ll-date__month">12/13</span></p>',
-//    'period1y': '<span>2018</span>',
-//    'period1md': '<span>10/30</span>',
-//    'period2y': '<span>2018</span>',
-//    'period2md': '<span>12/13</span>',
+  // 'period1y': '<span>2018</span>',
+  // 'period1md': '<span>10/30</span>',
+  // 'period2y': '<span>2018</span>',
+  // 'period2md': '<span>12/13</span>',
   'page': 't.cgi?t=m/fortune/result&amp;menu_id=306&amp;zspid=wzappallas',
   'menu_id': '306',
   'image_pickup': 'planet_5',
@@ -407,10 +412,10 @@ new Vue({
   'midoku': '0',
   'read': '0',
   'period': '<p><span class="ll-date__year">2018</span><span class="ll-date__month">10/30</span><span class="ll-date__year">2018</span><span class="ll-date__month">12/13</span></p>',
-//    'period1y': '<span>2018</span>',
-//    'period1md': '<span>10/30</span>',
-//    'period2y': '<span>2018</span>',
-//    'period2md': '<span>12/13</span>',
+  // 'period1y': '<span>2018</span>',
+  // 'period1md': '<span>10/30</span>',
+  // 'period2y': '<span>2018</span>',
+  // 'period2md': '<span>12/13</span>',
   'page': 't.cgi?t=m/fortune/result&amp;menu_id=312&amp;zspid=wzappallas',
   'menu_id': '312',
   'image_pickup': 'planet_5',
@@ -422,10 +427,10 @@ new Vue({
   'midoku': '0',
   'read': '0',
   'period': '<p><span class="ll-date__year">2018</span><span class="ll-date__month">10/30</span><span class="ll-date__year">2018</span><span class="ll-date__month">12/13</span></p>',
-//    'period1y': '<span>2018</span>',
-//    'period1md': '<span>10/30</span>',
-//    'period2y': '<span>2018</span>',
-//    'period2md': '<span>12/13</span>',
+  // 'period1y': '<span>2018</span>',
+  // 'period1md': '<span>10/30</span>',
+  // 'period2y': '<span>2018</span>',
+  // 'period2md': '<span>12/13</span>',
   'page': 't.cgi?t=m/fortune/result&amp;menu_id=314&amp;zspid=wzappallas',
   'menu_id': '314',
   'image_pickup': 'planet_5',
@@ -437,10 +442,10 @@ new Vue({
   'midoku': '0',
   'read': '0',
   'period': '<p><span class="ll-date__year">2018</span><span class="ll-date__month">11/6</span><span class="ll-date__year">2018</span><span class="ll-date__month">12/7</span></p>',
-//    'period1y': '<span>2018</span>',
-//    'period1md': '<span>11/6</span>',
-//    'period2y': '<span>2018</span>',
-//    'period2md': '<span>12/7</span>',
+  // 'period1y': '<span>2018</span>',
+  // 'period1md': '<span>11/6</span>',
+  // 'period2y': '<span>2018</span>',
+  // 'period2md': '<span>12/7</span>',
   'page': 't.cgi?t=m/fortune/result&amp;menu_id=301&amp;zspid=wzappallas',
   'menu_id': '301',
   'image_pickup': 'planet_4',
@@ -452,10 +457,10 @@ new Vue({
   'midoku': '0',
   'read': '0',
   'period': '<p><span class="ll-date__year">2018</span><span class="ll-date__month">11/6</span><span class="ll-date__year">2018</span><span class="ll-date__month">12/7</span></p>',
-//    'period1y': '<span>2018</span>',
-//    'period1md': '<span>11/6</span>',
-//    'period2y': '<span>2018</span>',
-//    'period2md': '<span>12/7</span>',
+  // 'period1y': '<span>2018</span>',
+  // 'period1md': '<span>11/6</span>',
+  // 'period2y': '<span>2018</span>',
+  // 'period2md': '<span>12/7</span>',
   'page': 't.cgi?t=m/fortune/result&amp;menu_id=303&amp;zspid=wzappallas',
   'menu_id': '303',
   'image_pickup': 'planet_4',
@@ -467,10 +472,10 @@ new Vue({
   'midoku': '0',
   'read': '0',
   'period': '<p><span class="ll-date__year">2018</span><span class="ll-date__month">11/6</span><span class="ll-date__year">2018</span><span class="ll-date__month">12/7</span></p>',
-//    'period1y': '<span>2018</span>',
-//    'period1md': '<span>11/6</span>',
-//    'period2y': '<span>2018</span>',
-//    'period2md': '<span>12/7</span>',
+  // 'period1y': '<span>2018</span>',
+  // 'period1md': '<span>11/6</span>',
+  // 'period2y': '<span>2018</span>',
+  // 'period2md': '<span>12/7</span>',
   'page': 't.cgi?t=m/fortune/result&amp;menu_id=311&amp;zspid=wzappallas',
   'menu_id': '311',
   'image_pickup': 'planet_4',
@@ -482,10 +487,10 @@ new Vue({
   'midoku': '0',
   'read': '0',
   'period': '<p><span class="ll-date__year">2018</span><span class="ll-date__month">11/8</span><span class="ll-date__year">2019</span><span class="ll-date__month">12/2</span></p>',
-//    'period1y': '<span>2018</span>',
-//    'period1md': '<span>11/8</span>',
-//    'period2y': '<span>2019</span>',
-//    'period2md': '<span>12/2</span>',
+  // 'period1y': '<span>2018</span>',
+  // 'period1md': '<span>11/8</span>',
+  // 'period2y': '<span>2019</span>',
+  // 'period2md': '<span>12/2</span>',
   'page': 't.cgi?t=m/fortune/result&amp;menu_id=307&amp;zspid=wzappallas',
   'menu_id': '307',
   'image_pickup': 'planet_6',
@@ -497,10 +502,10 @@ new Vue({
   'midoku': '0',
   'read': '0',
   'period': '<p><span class="ll-date__year">2018</span><span class="ll-date__month">11/18</span><span class="ll-date__year">2018</span><span class="ll-date__month">11/19</span></p>',
-//    'period1y': '<span>2018</span>',
-//    'period1md': '<span>11/18</span>',
-//    'period2y': '<span>2018</span>',
-//    'period2md': '<span>11/19</span>',
+  // 'period1y': '<span>2018</span>',
+  // 'period1md': '<span>11/18</span>',
+  // 'period2y': '<span>2018</span>',
+  // 'period2md': '<span>11/19</span>',
   'page': 't.cgi?t=m/fortune/result&amp;menu_id=313&amp;zspid=wzappallas',
   'menu_id': '313',
   'image_pickup': 'planet_1',
@@ -512,10 +517,10 @@ new Vue({
   'midoku': '0',
   'read': '0',
   'period': '<p><span class="ll-date__year">2018</span><span class="ll-date__month">11/19</span><span class="ll-date__year">2018</span><span class="ll-date__month">11/20</span></p>',
-//    'period1y': '<span>2018</span>',
-//    'period1md': '<span>11/19</span>',
-//    'period2y': '<span>2018</span>',
-//    'period2md': '<span>11/20</span>',
+  // 'period1y': '<span>2018</span>',
+  // 'period1md': '<span>11/19</span>',
+  // 'period2y': '<span>2018</span>',
+  // 'period2md': '<span>11/20</span>',
   'page': 't.cgi?t=m/fortune/result&amp;menu_id=315&amp;zspid=wzappallas',
   'menu_id': '315',
   'image_pickup': 'planet_1',
