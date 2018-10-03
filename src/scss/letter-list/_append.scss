@@ -24,6 +24,7 @@
   background-repeat: no-repeat;
   background-position: bottom,center 0px;
   background-size: 100%,cover;
+  border-top: 1px solid #4f4f4f;
   &::before {
     content:  "";
     position: absolute;
@@ -35,6 +36,13 @@
     width: 100%;
     padding-bottom: 10%;
     top: -16px;
+    @media screen and (min-width:640px){
+      top:-33px;
+    }
+
+    @media screen and (min-width:365px) and (max-width:639px){
+      top:-20px;
+    }
   }
 }
 
@@ -52,6 +60,19 @@
       &year,
       &prog {
         border-color: #75ABEB;
+      }
+    }
+    @media screen and (max-width: 320px){
+      a p {
+        width: auto;
+      }
+    }
+    .bg-new &{
+      a{
+        &::after {
+          width: 40px;
+          height: 20px;
+        }
       }
     }
   }
@@ -77,6 +98,9 @@
         background-image: url(/image/bgimg/planet_bg_long.sp.480.png);
       }
     }
+  }
+  &__date{
+    width:170px;
   }
 }
 
@@ -120,7 +144,7 @@
   background-size: 90px 43px;
   background-repeat: no-repeat;
   font-size: 18px;
-  color: #fff;
+  color: #fff !important;
   @media (max-width:320px){
     background-size: 77.5px 43px;
   }
