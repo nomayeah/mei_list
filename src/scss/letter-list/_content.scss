@@ -134,3 +134,42 @@
     &.planet_11 span:before {content: "";}
   }
 }
+
+
+//content
+.ll-content__item {
+  &.cate-short{
+    border-color: #9686D4;
+  }
+  &.cate-long{
+    border-color: #5BC3C9;
+  }
+  &.cate-year,
+  &.cate-prog {
+    border-color: #75ABEB;
+  }
+}
+.ll-content__title {
+  font-size: 18px;
+  padding-bottom:  0px;
+  padding-top: 0px;
+}
+.ll-content__planetNote span{
+  &::before {
+    content: "";
+    display: block;
+    width: 54px;
+    height: 24px;
+    background-color: transparent;
+    background-image: url(/image/bgimg/planet_bg.sp.480.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    .cate-prog &{
+      width: 80px;
+      height: 24px;
+      background-image: url(/image/bgimg/planet_bg_long.sp.480.png);
+    }
+  }
+}
+
