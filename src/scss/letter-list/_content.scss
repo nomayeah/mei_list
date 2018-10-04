@@ -15,7 +15,7 @@
     padding-top: 16px;
     text-align: center;
     color: #333333;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
   }
   &__item {
     border-bottom: 1px solid #828282;
@@ -169,7 +169,7 @@
   }
 }
 .ll-content__title {
-  font-size: 18px;
+  font-size: 14px;
   padding-bottom:  0px;
   padding-top: 0px;
 }
@@ -193,5 +193,11 @@
     .cate-prog &{
       background-image: url("/image/bgimg/planet_bg_long.sp.480.png");
     }
+  }
+}
+
+@media (min-width:320px) and (max-width:374px){
+  .ll-content__area {
+    padding: 5px;
   }
 }
