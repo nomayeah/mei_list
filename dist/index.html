@@ -141,7 +141,7 @@
         <div class="ll-content__area">
           <div class="ll-content__title" v-html="llContentTitle(index)"></div>
           <ul v-if="index == 0"><!-- 新着 -->
-            <li class="ll-content__item" v-for="( item, key ) in list" v-if="item.planet_move == 1" :class="llContentCategory(item.list_number)">
+            <li class="ll-content__item" v-for="( item, key ) in list" v-if="item.planet_move == 1 || item.list_number != '' " :class="llContentCategory(item.list_number)">
               <a :href="item.page" :class="llContentRead(item.midoku)">
                 <div class="ll-content__date" v-html="item.period"></div>
                 <div class="ll-content__text">
@@ -187,7 +187,7 @@
               </a>
             </li>
           </ul>
-          <ul v-else><!-- 短期、中期、長期 -->
+          <ul v-else-if="index == 1 || index == 2"><!-- 短期、中期、長期 -->
             <li class="ll-content__item" v-for="( item, key ) in list"  v-if="item.list_number == index" :class="llContentCategory(item.list_number)">
               <a :href="item.page" :class="llContentRead(item.midoku)">
                 <div class="ll-content__date" v-html="item.period"></div>
@@ -202,11 +202,10 @@
             </li>
           </ul>
           <!-- 長期の場合のみプログレスを出力 -->
-          <div class="ll-content__title" v-html="llContentTitle(4)" v-if="index == 3"></div>
-          <ul v-if="index == 3">
-            <li class="ll-content__item" v-for="( item, key ) in list" v-if="item.list_number == index + 1" :class="llContentCategory(item.list_number)">
-              <a :href="item.page">
-                <div class="ll-content__date"></div>
+          <ul v-else><!-- 長期 -->
+            <li class="ll-content__item" v-for="( item, key ) in list"  v-if="item.list_number == 3 || item.list_number == 4" :class="llContentCategory(item.list_number)">
+              <a :href="item.page" :class="llContentRead(item.midoku)">
+                <div class="ll-content__date" v-html="item.period"></div>
                 <div class="ll-content__text">
                   <span>{{ item.menu_name }}</span>
                 </div>
