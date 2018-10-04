@@ -15,6 +15,7 @@
     background-size: 100% 45px;
     background-repeat: no-repeat;
     height: 45px;
+    // font-weight: 700;
     width: 100%;
     font-size: 14px;
     border-right: 1px solid #828282;
@@ -24,7 +25,7 @@
     &.ll-tab{
       &__new {
         border-radius:6px 0 0 6px;
-        color: #4F4F4F;
+        color: #beb374;
       }
       &__short {
         color: #9686d4;
