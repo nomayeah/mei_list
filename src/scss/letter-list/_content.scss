@@ -56,7 +56,8 @@
     border-radius: 16px;
     .cate-short & {background-color: #9686D4;}
     .cate-long & {background-color: #5BC3C9;}
-    .cate-year & {background-color: #75ABEB;}
+    .cate-year &,
+    .cate-prog & {background-color: #75ABEB;}
     .ll-date__area {
       margin: 0;
     }
@@ -163,5 +164,11 @@
     .cate-prog &{
       background-image: url("/image/bgimg/planet_bg_long.sp.480.png");
     }
+  }
+}
+
+@media (min-width:320px) and (max-width:374px){
+  .ll-content__area {
+    padding: 5px;
   }
 }
