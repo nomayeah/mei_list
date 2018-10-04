@@ -31,26 +31,27 @@
     }
     .cate-short a::after {content: "短期";border-color: #CAC5ED;color: #CAC5ED;}
     .cate-long a::after {content: "中期";border-color: #95dede;color: #95dede;}
-    .cate-year a::after {content: "長期";border-color: #ead97b;color: #ead97b;}
-    .cate-prog {
-      .ll-content__date {
-        color: transparent;
-        &::after {
-          content: "今の心境";
-          display: inline-block;
-          color: #fff;
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          margin: auto;
-          width: 100px;
-          text-align: center;
-        }
-      }
-      a::after {content: "今の心境";border-color: #d4b4df;color: #d4b4df;}
-    }
+    .cate-year a::after,
+    .cate-prog a::after {content: "長期";border-color: #75ABEB;color: #75ABEB;}
+    // .cate-prog {
+    //   .ll-content__date {
+    //     color: transparent;
+    //     &::after {
+    //       content: "今の心境";
+    //       display: inline-block;
+    //       color: #fff;
+    //       position: absolute;
+    //       top: 0;
+    //       left: 0;
+    //       right: 0;
+    //       bottom: 0;
+    //       margin: auto;
+    //       width: 100px;
+    //       text-align: center;
+    //     }
+    //   }
+    //   a::after {content: "今の心境";border-color: #d4b4df;color: #d4b4df;}
+    // }
   }
   &-short ul{
     border-color: #9686D4;

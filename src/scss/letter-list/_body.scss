@@ -2,21 +2,21 @@
   margin: 0 -16px;
   position: relative;
   background-image: url("/image/line/line_bottom.sp.480.png"),url("/image/bgimg/impact_base.sp.480.png");
-  padding-top: 15%;
+  padding-top: 38px;
   padding-bottom: 30px;
   background-repeat: no-repeat;
   background-position: bottom,center 0px;
   background-size: 100%,cover;
+  border-top: 1px solid #4F4F4F;
   &::before {
     content:  "";
     position: absolute;
     background: url("/image/banner/impact_main_menu.sp.480.png");
     display: block;
-    background-size:  contain;
-    background-repeat:  no-repeat;
+    background-size: 300px;
+    background-repeat: no-repeat;
     background-position: center;
-    width: 100%;
-    padding-bottom: 10%;
-    top: -16px;
+    padding-bottom: 36px;
+    top: -18px;
   }
 }
