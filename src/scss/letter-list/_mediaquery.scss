@@ -1,0 +1,20 @@
+@media screen and (max-width: 320px){
+  .ll-body {
+    padding: 38px 10px 10px;
+  }
+  .ll-content__date .ll-date__area {
+    width: auto;
+  }
+  .ll-content__area ul {
+    margin: auto;
+  }
+  .ll-content__date {
+    left: 8px;
+  }
+  .ll-content__planetNote {
+    left: 178px;
+  }
+  .bg-new .ll-content__item a::after {
+    right: 8px;
+  }
+}
