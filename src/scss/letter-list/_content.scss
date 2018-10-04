@@ -1,6 +1,6 @@
 .ll-content {
   &__area {
-    padding: 12px;
+    padding: 12px 0;
     // .bg-short & {background-color: #CAC5ED;}
     // .bg-long & {background-color: #95dede;}
     // .bg-year & {background-color: #ead97b;}
@@ -12,10 +12,10 @@
     }
   }
   &__title {
-    font-size: 18px;
+    font-size: 14px;
     text-align: center;
     color: #333333;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
     padding-bottom:  0px;
     padding-top: 0;
   }
@@ -134,7 +134,7 @@
         background-repeat: no-repeat;
       }
     }
-    &.planet_1 span::after {content: "月";background-image: url("/image/icon/ll_icon_1.sp.480.png");}
+    &.planet_1 span::after {content: "プログレス";background-image: url("/image/icon/ll_icon_1.sp.480.png");}
     &.planet_2 span::after {content: "太陽";background-image: url("/image/icon/ll_icon_2.sp.480.png");}
     &.planet_3 span::after {content: "月";background-image: url("/image/icon/ll_icon_1.sp.480.png");}
     &.planet_4 span::after {content: "水星";background-image: url("/image/icon/ll_icon_3.sp.480.png");}
