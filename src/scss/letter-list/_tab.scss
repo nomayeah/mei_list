@@ -1,6 +1,6 @@
 .ll-tab {
   width: 350px;
-  margin: 0 auto 12px;
+  margin: 0 auto 11px;
   &__item {
     display: flex;
     justify-content: center;
@@ -12,5 +12,51 @@
     width: 76px;
     border: 1px solid #ccc;
     margin: 0 auto;
+  }
+}
+
+.ll-tab{
+  width: 360px;
+  .ll-tab__item{
+    background-image: url("/image/tab/tab_off.sp.480.png");
+    background-size: 90px 43px;
+    background-repeat: no-repeat;
+    height: 45px;
+    width: 100%;
+    border: 1px solid #828282;
+    color: #000;
+    font-size: 14px;
+    &.ll-tab{
+      &__new {
+        border-radius:6px 0 0 6px;
+        color: #4F4F4F;
+      }
+      &__short {
+        color: #9686d4;
+      }
+      &__long {
+        color: #5BC3C9;
+      }
+      &__year {
+        border-radius: 0 6px 6px 0;
+        color: #75ABEB;
+      }
+    }
+    &.ll-tab__new,
+    &.ll-tab__short,
+    &.ll-tab__long{
+      border-right:0;
+    }
+  }
+}
+
+
+
+@media (min-width:320px) and (max-width:374px){
+  .ll-tab .slick-slide{
+    width: 75px !important;
+  }
+  .ll-body > .ll-tab{
+    width: 300px !important;
   }
 }

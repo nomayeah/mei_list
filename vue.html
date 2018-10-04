@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <!-- <p v-for="message in message">{{ message.menu_name }}</p> -->
+    <!-- <p>{{ message[0].menu_name }}</p> -->
+    <p v-html="menuName()"></p>
+  </div>
+
+
+1回目は特殊なやつを回す
+2回目shortはimageの1に合致するやつ
+3kaimeha2
+4回目は3と4をだす
+
+vueのコンポーネント呼び込み後
+その中（inc）にまとめて直接書く
+
+自分は2,3
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+var vm = new Vue({
+  el: '#app',
+  data: {
+    message: [
+      {
+        "image": "3",
+        "menu_name": "今年起こりうる試練",
+        "period": "12/20-3/21",
+        "midoku": "1",
+        "page": "t.cgi?t=m/fortune/result&menu_id=309&zspid=wzappallas",
+        "menu_id": "309",
+        "image_pickup": "planet_08",
+      },
+      {
+        "image": "2",
+        "menu_name": "今日の月が教えてくれる最適な過ごし方",
+        "period": "9/21-9/23",
+        "midoku": "0",
+        "page": "t.cgi?t=m/fortune/result&menu_id=313&zspid=wzappallas",
+        "menu_id": "313",
+        "image_pickup": "planet_03",
+      },
+      {
+        "image": "1",
+        "menu_name": "今日の月が教えてくれる全体的なムード",
+        "period": "9/20-9/21",
+        "midoku": "0",
+        "page": "t.cgi?t=m/fortune/result&menu_id=315&zspid=wzappallas",
+        "menu_id": "315",
+        "image_pickup": "planet_03",
+      }
+    ]
+  },
+  methods:{
+    menuName: function(){
+      return console.log(this.message[0].menu_name);
+      // return "テスト"
+    }
+  }
+});
+
+</script>
+</body>
+</html>

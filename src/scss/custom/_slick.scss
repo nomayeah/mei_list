@@ -1,0 +1,34 @@
+.slick-current.slick-active .ll-tab__item {
+  background-size: 90px 43px;
+  background-repeat: no-repeat;
+  font-size: 18px;
+  color: #fff;
+  @media (max-width:320px){
+    background-size: 77.5px 43px;
+  }
+  &.ll-tab{
+    &__new {
+      background-image: url(/image/tab/tab_new_on.sp.480.png);
+    }
+    &__short {
+      background-image: url(/image/tab/tab_short_on.sp.480.png);
+    }
+    &__long {
+      background-image: url(/image/tab/tab_middle_on.sp.480.png);
+    }
+    &__year {
+      background-image: url(/image/tab/tab_long_on.sp.480.png);
+    }
+  }
+}
+
+.slick-slide {
+  padding: 0;
+  &.slick-active {
+    outline: 0;
+  }
+}
+
+.ll-content__area .slick-slider {
+  margin-bottom: 0;
+}
