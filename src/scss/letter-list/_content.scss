@@ -65,9 +65,6 @@
     .cate-year & {background-color: #75ABEB;}
     .ll-date__area {
       margin: 0;
-      @media screen and (max-width: 320px){
-        width: auto;
-      }
     }
     .ll-date__year {
       font-size: 8px;
@@ -142,7 +139,7 @@
     }
     &.planet_1 span::after {content: "月";background-image: url("/image/icon/ll_icon_1.sp.480.png");}
     &.planet_2 span::after {content: "太陽";background-image: url("/image/icon/ll_icon_2.sp.480.png");}
-    &.planet_3 span::after {content: "プログレス";background-image: url("/image/icon/ll_icon_1.sp.480.png");}
+    &.planet_3 span::after {content: "月";background-image: url("/image/icon/ll_icon_1.sp.480.png");}
     &.planet_4 span::after {content: "水星";background-image: url("/image/icon/ll_icon_3.sp.480.png");}
     &.planet_5 span::after {content: "金星";background-image: url("/image/icon/ll_icon_4.sp.480.png");}
     &.planet_6 span::after {content: "火星";background-image: url("/image/icon/ll_icon_5.sp.480.png");}
