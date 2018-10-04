@@ -1,7 +1,9 @@
 .ll-tab {
+  max-width: 360px;
   margin: 0 auto 12px;
   border: 1px solid #828282;
   border-radius: 8px;
+  overflow: hidden;
   &__item {
     display: flex;
     justify-content: center;
@@ -10,7 +12,7 @@
     line-height: 16px;
     margin: 0 auto;
     background-image: url("/image/tab/tab_off.sp.480.png");
-    background-size: 90px 43px;
+    background-size: 100% 45px;
     background-repeat: no-repeat;
     height: 45px;
     width: 100%;
