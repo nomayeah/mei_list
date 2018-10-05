@@ -33,11 +33,11 @@
       <div><div class="ll-tab__item ll-tab__year">長期<br></div></div>
     </div>
     <div class="ll-content"><!-- 新着と短期中期と長期は出力方法が違う -->
-      <div v-for="( loop, index ) in 5" :class="llContentArea(index)">
+      <div v-for="( loop, index ) in 4" :class="llContentArea(index)">
         <div class="ll-content__area">
           <div class="ll-content__title" v-html="llContentTitle(index)"></div>
           <ul v-if="index == 0"><!-- 新着 -->
-            <li class="ll-content__item" v-for="( item, key ) in list" v-if="item.planet_move == 1 || item.list_number != '' " :class="llContentCategory(item.list_number)">
+            <li class="ll-content__item" v-for="( item, key ) in list" v-if="llContentListFlagPlanet(item.planet_move, item.image_pickup)" :class="llContentCategory(item.list_number)">
               <a :href="item.page" :class="llContentRead(item.midoku)">
                 <div class="ll-content__date" v-html="item.period"></div>
                 <div class="ll-content__text">
@@ -52,7 +52,7 @@
                 </div>
               </a>
             </li>
-            <li class="ll-content__item" v-for="( item, key ) in list" v-if="item.midoku == 0" :class="llContentCategory(item.list_number)">
+            <li class="ll-content__item" v-for="( item, key ) in list" v-if="llContentListFlagRead(item.midoku, item.image_pickup)" :class="llContentCategory(item.list_number)">
               <a :href="item.page" :class="llContentRead(item.midoku)">
                 <div class="ll-content__date" v-html="item.period"></div>
                 <div class="ll-content__text">
@@ -67,7 +67,7 @@
                 </div>
               </a>
             </li>
-            <li class="ll-content__item" v-for="( item, key ) in list" v-if="item.midoku == 1" :class="llContentCategory(item.list_number)">
+            <li class="ll-content__item" v-for="( item, key ) in list" v-if="llContentListFlagnoRead(item.midoku, item.image_pickup)" :class="llContentCategory(item.list_number)">
               <a :href="item.page" :class="llContentRead(item.midoku)">
                 <div class="ll-content__date" v-html="item.period"></div>
                 <div class="ll-content__text">
@@ -83,23 +83,8 @@
               </a>
             </li>
           </ul>
-          <ul v-else-if="index == 1 || index == 2"><!-- 短期、中期、長期 -->
-            <li class="ll-content__item" v-for="( item, key ) in list"  v-if="item.list_number == index" :class="llContentCategory(item.list_number)">
-              <a :href="item.page" :class="llContentRead(item.midoku)">
-                <div class="ll-content__date" v-html="item.period"></div>
-                <div class="ll-content__text">
-                  <span>{{ item.menu_name }}</span>
-                </div>
-                <div class="ll-content__planetNote" :class="item.image_pickup">
-                  <span v-if="list.planet_move == 1" class="planet_active"></span>
-                  <span v-else></span>
-                </div>
-              </a>
-            </li>
-          </ul>
-          <!-- 長期の場合のみプログレスを出力 -->
-          <ul v-else><!-- 長期 -->
-            <li class="ll-content__item" v-for="( item, key ) in list"  v-if="item.list_number == 3 || item.list_number == 4" :class="llContentCategory(item.list_number)">
+          <ul v-else><!-- 短期、中期、長期 -->
+            <li class="ll-content__item" v-for="( item, key ) in list"  v-if="llContentList(item.list_number, index, item.image_pickup)" :class="llContentCategory(item.list_number)">
               <a :href="item.page" :class="llContentRead(item.midoku)">
                 <div class="ll-content__date" v-html="item.period"></div>
                 <div class="ll-content__text">
@@ -122,19 +107,19 @@
 <pre>
 [%FOREACH p=pickup%]
 {
-  'list_number': '[%p.image%]',
+  'list_number': '[% IF p.image == 0 %]0[% ELSIF p.image == 1 %]1[% ELSIF p.image == 2 %]2[% ELSE %]3[%END%]',
+  'page': 't.cgi?t=[%p.page%]&menu_id=[%p.menu_id%]&<!--DEF_P-->',
   'menu_name': '[% p.menu_name %]',
   'planet_move': '[% IF p.is_read == 0 && p.is_midoku == 1 %]1[% ELSE %]0[%END%]',
   'midoku': '[% p.is_midoku %]',
   'read': '[% p.is_read %]',
-  'period': '[% IF p.period1y == "" %]今の心境[% END %]<p><span class="ll-date__year">[% p.period1y IF p.period %]</span><span class="ll-date__month">[% p.period1md IF p.period %]</span><span class="ll-date__year">[% p.period2y IF p.period %]</span><span class="ll-date__month">[% p.period2md IF p.period %]</span></p>',
+  'menu_id': '[%p.menu_id%]',
+  'period': '<p class="ll-date__area"><span class="ll-date__year">[% p.period1y IF p.period %]</span><span class="ll-date__month">[% p.period1md IF p.period %]</span><span class="ll-date__year">[% p.period2y IF p.period %]</span><span class="ll-date__month">[% p.period2md IF p.period %]</span></p>',
   // 'period1y': '<span>[% p.period1y IF p.period %]</span>',
   // 'period1md': '<span>[% p.period1md IF p.period %]</span>',
   // 'period2y': '<span>[% p.period2y IF p.period %]</span>',
   // 'period2md': '<span>[% p.period2md IF p.period %]</span>',
-  'page': 't.cgi?t=[%p.page%]&menu_id=[%p.menu_id%]&<!--DEF_P-->',
-  'menu_id': '[%p.menu_id%]',
-  'image_pickup': 'planet_[%p.image_pickup%]',
+  'image_pickup': '[% IF p.image_pickup == ''%]planet_none[% ELSE %]planet_[%p.image_pickup%][% END %]',
 },[%END%]
 </pre>
 
@@ -150,295 +135,207 @@ new Vue({
   el: '#js-letterList',
   data: {
     list: [
-    {
-  'list_number': '4',
-  'menu_name': '今期のあなたの心理と大切な裏テーマ',
-  'planet_move': '0',
-  'midoku': '1',
-  'read': '1',
-  'period': '<p><span class="ll-date__year"></span><span class="ll-date__month"></span><span class="ll-date__year"></span><span class="ll-date__month"></span></p>',
-  // 'period1y': '<span></span>',
-  // 'period1md': '<span></span>',
-  // 'period2y': '<span></span>',
-  // 'period2md': '<span></span>',
-  'page': 't.cgi?t=m/fortune2/result&amp;menu_id=401&amp;zspid=wzappallas',
-  'menu_id': '401',
-  'image_pickup': 'planet_1',
-},
-{
-  'list_number': '4',
-  'menu_name': 'ここ半年以上、不調続き。どう過ごせば改善できる？',
-  'planet_move': '0',
-  'midoku': '1',
-  'read': '1',
-  'period': '<p><span class="ll-date__year"></span><span class="ll-date__month"></span><span class="ll-date__year"></span><span class="ll-date__month"></span></p>',
-  // 'period1y': '<span></span>',
-  // 'period1md': '<span></span>',
-  // 'period2y': '<span></span>',
-  // 'period2md': '<span></span>',
-  'page': 't.cgi?t=m/fortune2/result&amp;menu_id=402&amp;zspid=wzappallas',
-  'menu_id': '402',
-  'image_pickup': 'planet_1',
-},
-{
-  'list_number': '4',
-  'menu_name': '大きく変わってしまったあの人。今のあの人の心境は？',
-  'planet_move': '0',
-  'midoku': '0',
-  'read': '0',
-  'period': '<p><span class="ll-date__year"></span><span class="ll-date__month"></span><span class="ll-date__year"></span><span class="ll-date__month"></span></p>',
-  // 'period1y': '<span></span>',
-  // 'period1md': '<span></span>',
-  // 'period2y': '<span></span>',
-  // 'period2md': '<span></span>',
-  'page': 't.cgi?t=m/fortune2/result&amp;menu_id=403&amp;zspid=wzappallas',
-  'menu_id': '403',
-  'image_pickup': 'planet_1',
-},
-{
-  'list_number': '3',
-  'menu_name': 'この時期試練を克服するためには',
-  'planet_move': '0',
-  'midoku': '0',
-  'read': '0',
-  'period': '<p><span class="ll-date__year">2016</span><span class="ll-date__month">11/19</span><span class="ll-date__year">2019</span><span class="ll-date__month">3/22</span></p>',
-  // 'period1y': '<span>2016</span>',
-  // 'period1md': '<span>11/19</span>',
-  // 'period2y': '<span>2019</span>',
-  // 'period2md': '<span>3/22</span>',
-  'page': 't.cgi?t=m/fortune/result&amp;menu_id=310&amp;zspid=wzappallas',
-  'menu_id': '310',
-  'image_pickup': 'planet_7',
-},
-{
-  'list_number': '3',
-  'menu_name': 'この時期起こりうる試練',
-  'planet_move': '0',
-  'midoku': '0',
-  'read': '0',
-  'period': '<p><span class="ll-date__year">2017</span><span class="ll-date__month">12/20</span><span class="ll-date__year">2020</span><span class="ll-date__month">3/21</span></p>',
-  // 'period1y': '<span>2017</span>',
-  // 'period1md': '<span>12/20</span>',
-  // 'period2y': '<span>2020</span>',
-  // 'period2md': '<span>3/21</span>',
-  'page': 't.cgi?t=m/fortune/result&amp;menu_id=309&amp;zspid=wzappallas',
-  'menu_id': '309',
-  'image_pickup': 'planet_7',
-},
-{
-  'list_number': '3',
-  'menu_name': 'この時期幸運をつかむためには',
-  'planet_move': '0',
-  'midoku': '0',
-  'read': '0',
-  'period': '<p><span class="ll-date__year">2018</span><span class="ll-date__month">7/14</span><span class="ll-date__year">2019</span><span class="ll-date__month">1/23</span></p>',
-  // 'period1y': '<span>2018</span>',
-  // 'period1md': '<span>7/14</span>',
-  // 'period2y': '<span>2019</span>',
-  // 'period2md': '<span>1/23</span>',
-  'page': 't.cgi?t=m/fortune/result&amp;menu_id=308&amp;zspid=wzappallas',
-  'menu_id': '308',
-  'image_pickup': 'planet_6',
-},
-{
-  'list_number': '1',
-  'menu_name': '恋愛では何をするのに適したとき？',
-  'planet_move': '0',
-  'midoku': '1',
-  'read': '1',
-  'period': '<p><span class="ll-date__year">2018</span><span class="ll-date__month">8/20</span><span class="ll-date__year">2018</span><span class="ll-date__month">12/20</span></p>',
-  // 'period1y': '<span>2018</span>',
-  // 'period1md': '<span>8/20</span>',
-  // 'period2y': '<span>2018</span>',
-  // 'period2md': '<span>12/20</span>',
-  'page': 't.cgi?t=m/fortune/result&amp;menu_id=302&amp;zspid=wzappallas',
-  'menu_id': '302',
-  'image_pickup': 'planet_3',
-},
-{
-  'list_number': '1',
-  'menu_name': 'これから起こりそうな嬉しいことは？',
-  'planet_move': '0',
-  'midoku': '0',
-  'read': '0',
-  'period': '<p><span class="ll-date__year">2018</span><span class="ll-date__month">8/20</span><span class="ll-date__year">2018</span><span class="ll-date__month">12/20</span></p>',
-  // 'period1y': '<span>2018</span>',
-  // 'period1md': '<span>8/20</span>',
-  // 'period2y': '<span>2018</span>',
-  // 'period2md': '<span>12/20</span>',
-  'page': 't.cgi?t=m/fortune/result&amp;menu_id=305&amp;zspid=wzappallas',
-  'menu_id': '305',
-  'image_pickup': 'planet_3',
-},
-{
-  'list_number': '1',
-  'menu_name': 'これからの対人運は？',
-  'planet_move': '0',
-  'midoku': '0',
-  'read': '0',
-  'period': '<p><span class="ll-date__year">2018</span><span class="ll-date__month">10/19</span><span class="ll-date__year">2018</span><span class="ll-date__month">12/26</span></p>',
-  // 'period1y': '<span>2018</span>',
-  // 'period1md': '<span>10/19</span>',
-  // 'period2y': '<span>2018</span>',
-  // 'period2md': '<span>12/26</span>',
-  'page': 't.cgi?t=m/fortune/result&amp;menu_id=304&amp;zspid=wzappallas',
-  'menu_id': '304',
-  'image_pickup': 'planet_2',
-},
-{
-  'list_number': '2',
-  'menu_name': 'しばらくは何を気をつけたらいい？',
-  'planet_move': '0',
-  'midoku': '0',
-  'read': '0',
-  'period': '<p><span class="ll-date__year">2018</span><span class="ll-date__month">10/30</span><span class="ll-date__year">2018</span><span class="ll-date__month">12/13</span></p>',
-  // 'period1y': '<span>2018</span>',
-  // 'period1md': '<span>10/30</span>',
-  // 'period2y': '<span>2018</span>',
-  // 'period2md': '<span>12/13</span>',
-  'page': 't.cgi?t=m/fortune/result&amp;menu_id=306&amp;zspid=wzappallas',
-  'menu_id': '306',
-  'image_pickup': 'planet_5',
-},
-{
-  'list_number': '2',
-  'menu_name': '急に感じが悪くなったあの人。その理由は？',
-  'planet_move': '0',
-  'midoku': '0',
-  'read': '0',
-  'period': '<p><span class="ll-date__year">2018</span><span class="ll-date__month">10/30</span><span class="ll-date__year">2018</span><span class="ll-date__month">12/13</span></p>',
-  // 'period1y': '<span>2018</span>',
-  // 'period1md': '<span>10/30</span>',
-  // 'period2y': '<span>2018</span>',
-  // 'period2md': '<span>12/13</span>',
-  'page': 't.cgi?t=m/fortune/result&amp;menu_id=312&amp;zspid=wzappallas',
-  'menu_id': '312',
-  'image_pickup': 'planet_5',
-},
-{
-  'list_number': '2',
-  'menu_name': '最近イライラ続き。一体何が原因？',
-  'planet_move': '0',
-  'midoku': '0',
-  'read': '0',
-  'period': '<p><span class="ll-date__year">2018</span><span class="ll-date__month">10/30</span><span class="ll-date__year">2018</span><span class="ll-date__month">12/13</span></p>',
-  // 'period1y': '<span>2018</span>',
-  // 'period1md': '<span>10/30</span>',
-  // 'period2y': '<span>2018</span>',
-  // 'period2md': '<span>12/13</span>',
-  'page': 't.cgi?t=m/fortune/result&amp;menu_id=314&amp;zspid=wzappallas',
-  'menu_id': '314',
-  'image_pickup': 'planet_5',
-},
-{
-  'list_number': '2',
-  'menu_name': '今のあなたの運勢とテーマ',
-  'planet_move': '0',
-  'midoku': '0',
-  'read': '0',
-  'period': '<p><span class="ll-date__year">2018</span><span class="ll-date__month">11/6</span><span class="ll-date__year">2018</span><span class="ll-date__month">12/7</span></p>',
-  // 'period1y': '<span>2018</span>',
-  // 'period1md': '<span>11/6</span>',
-  // 'period2y': '<span>2018</span>',
-  // 'period2md': '<span>12/7</span>',
-  'page': 't.cgi?t=m/fortune/result&amp;menu_id=301&amp;zspid=wzappallas',
-  'menu_id': '301',
-  'image_pickup': 'planet_4',
-},
-{
-  'list_number': '2',
-  'menu_name': '仕事では何をするのに適したとき？',
-  'planet_move': '0',
-  'midoku': '0',
-  'read': '0',
-  'period': '<p><span class="ll-date__year">2018</span><span class="ll-date__month">11/6</span><span class="ll-date__year">2018</span><span class="ll-date__month">12/7</span></p>',
-  // 'period1y': '<span>2018</span>',
-  // 'period1md': '<span>11/6</span>',
-  // 'period2y': '<span>2018</span>',
-  // 'period2md': '<span>12/7</span>',
-  'page': 't.cgi?t=m/fortune/result&amp;menu_id=303&amp;zspid=wzappallas',
-  'menu_id': '303',
-  'image_pickup': 'planet_4',
-},
-{
-  'list_number': '2',
-  'menu_name': '今のスランプ状態から抜け出すには？',
-  'planet_move': '0',
-  'midoku': '0',
-  'read': '0',
-  'period': '<p><span class="ll-date__year">2018</span><span class="ll-date__month">11/6</span><span class="ll-date__year">2018</span><span class="ll-date__month">12/7</span></p>',
-  // 'period1y': '<span>2018</span>',
-  // 'period1md': '<span>11/6</span>',
-  // 'period2y': '<span>2018</span>',
-  // 'period2md': '<span>12/7</span>',
-  'page': 't.cgi?t=m/fortune/result&amp;menu_id=311&amp;zspid=wzappallas',
-  'menu_id': '311',
-  'image_pickup': 'planet_4',
-},
-{
-  'list_number': '3',
-  'menu_name': 'この時期訪れやすいチャンスや幸運',
-  'planet_move': '0',
-  'midoku': '0',
-  'read': '0',
-  'period': '<p><span class="ll-date__year">2018</span><span class="ll-date__month">11/8</span><span class="ll-date__year">2019</span><span class="ll-date__month">12/2</span></p>',
-  // 'period1y': '<span>2018</span>',
-  // 'period1md': '<span>11/8</span>',
-  // 'period2y': '<span>2019</span>',
-  // 'period2md': '<span>12/2</span>',
-  'page': 't.cgi?t=m/fortune/result&amp;menu_id=307&amp;zspid=wzappallas',
-  'menu_id': '307',
-  'image_pickup': 'planet_6',
-},
-{
-  'list_number': '1',
-  'menu_name': '今日の月が教えてくれる最適な過ごし方',
-  'planet_move': '0',
-  'midoku': '0',
-  'read': '0',
-  'period': '<p><span class="ll-date__year">2018</span><span class="ll-date__month">11/18</span><span class="ll-date__year">2018</span><span class="ll-date__month">11/19</span></p>',
-  // 'period1y': '<span>2018</span>',
-  // 'period1md': '<span>11/18</span>',
-  // 'period2y': '<span>2018</span>',
-  // 'period2md': '<span>11/19</span>',
-  'page': 't.cgi?t=m/fortune/result&amp;menu_id=313&amp;zspid=wzappallas',
-  'menu_id': '313',
-  'image_pickup': 'planet_1',
-},
-{
-  'list_number': '1',
-  'menu_name': '今日の月が教えてくれる全体的なムード',
-  'planet_move': '0',
-  'midoku': '0',
-  'read': '0',
-  'period': '<p><span class="ll-date__year">2018</span><span class="ll-date__month">11/19</span><span class="ll-date__year">2018</span><span class="ll-date__month">11/20</span></p>',
-  // 'period1y': '<span>2018</span>',
-  // 'period1md': '<span>11/19</span>',
-  // 'period2y': '<span>2018</span>',
-  // 'period2md': '<span>11/20</span>',
-  'page': 't.cgi?t=m/fortune/result&amp;menu_id=315&amp;zspid=wzappallas',
-  'menu_id': '315',
-  'image_pickup': 'planet_1',
-},
+      {
+        'list_number': '3',
+        'page': 't.cgi?t=m/fortune/result&amp;menu_id=315&amp;zspid=wzappallas',
+        'menu_name': '今日の月が教えてくれる全体的なムード',
+        'planet_move': '0',
+        'midoku': '1',
+        'read': '1',
+        'menu_id': '315',
+        'period': '<p><span class="ll-date__year">2019</span><span class="ll-date__month">12/1</span><span class="ll-date__year">2019</span><span class="ll-date__month">12/2</span></p>',
+        'image_pickup': '0',
+      },
+      {
+        'list_number': '3',
+        'page': 't.cgi?t=m/fortune/result&amp;menu_id=313&amp;zspid=wzappallas',
+        'menu_name': '今日の月が教えてくれる最適な過ごし方',
+        'planet_move': '0',
+        'midoku': '1',
+        'read': '1',
+        'menu_id': '313',
+        'period': '<p><span class="ll-date__year">2019</span><span class="ll-date__month">11/30</span><span class="ll-date__year">2019</span><span class="ll-date__month">12/1</span></p>',
+        'image_pickup': '0',
+      },
+      {
+        'list_number': '1',
+        'page': 't.cgi?t=m/fortune/result&amp;menu_id=302&amp;zspid=wzappallas',
+        'menu_name': '恋愛では何をするのに適したとき？',
+        'planet_move': '0',
+        'midoku': '1',
+        'read': '1',
+        'menu_id': '302',
+        'period': '<p><span class="ll-date__year">2019</span><span class="ll-date__month">11/15</span><span class="ll-date__year">2019</span><span class="ll-date__month">12/11</span></p>',
+        'image_pickup': 'planet_3',
+      },
+      {
+        'list_number': '1',
+        'page': 't.cgi?t=m/fortune/result&amp;menu_id=305&amp;zspid=wzappallas',
+        'menu_name': 'これから起こりそうな嬉しいことは？',
+        'planet_move': '0',
+        'midoku': '1',
+        'read': '1',
+        'menu_id': '305',
+        'period': '<p><span class="ll-date__year">2019</span><span class="ll-date__month">11/15</span><span class="ll-date__year">2019</span><span class="ll-date__month">12/11</span></p>',
+        'image_pickup': 'planet_3',
+      },
+      {
+        'list_number': '2',
+        'page': 't.cgi?t=m/fortune/result&amp;menu_id=312&amp;zspid=wzappallas',
+        'menu_name': '急に感じが悪くなったあの人。その理由は？',
+        'planet_move': '0',
+        'midoku': '1',
+        'read': '1',
+        'menu_id': '312',
+        'period': '<p><span class="ll-date__year">2019</span><span class="ll-date__month">10/27</span><span class="ll-date__year">2019</span><span class="ll-date__month">12/11</span></p>',
+        'image_pickup': 'planet_5',
+      },
+      {
+        'list_number': '2',
+        'page': 't.cgi?t=m/fortune/result&amp;menu_id=306&amp;zspid=wzappallas',
+        'menu_name': 'しばらくは何を気をつけたらいい？',
+        'planet_move': '0',
+        'midoku': '1',
+        'read': '1',
+        'menu_id': '306',
+        'period': '<p><span class="ll-date__year">2019</span><span class="ll-date__month">10/25</span><span class="ll-date__year">2019</span><span class="ll-date__month">12/9</span></p>',
+        'image_pickup': 'planet_5',
+      },
+      {
+        'list_number': '2',
+        'page': 't.cgi?t=m/fortune/result&amp;menu_id=314&amp;zspid=wzappallas',
+        'menu_name': '最近イライラ続き。一体何が原因？',
+        'planet_move': '0',
+        'midoku': '0',
+        'read': '0',
+        'menu_id': '314',
+        'period': '<p><span class="ll-date__year">2019</span><span class="ll-date__month">10/25</span><span class="ll-date__year">2019</span><span class="ll-date__month">12/9</span></p>',
+        'image_pickup': 'planet_5',
+      },
+      {
+        'list_number': '3',
+        'page': 't.cgi?t=m/fortune/result&amp;menu_id=308&amp;zspid=wzappallas',
+        'menu_name': 'この時期幸運をつかむためには',
+        'planet_move': '0',
+        'midoku': '0',
+        'read': '0',
+        'menu_id': '308',
+        'period': '<p><span class="ll-date__year">2019</span><span class="ll-date__month">9/20</span><span class="ll-date__year">2020</span><span class="ll-date__month">3/1</span></p>',
+        'image_pickup': 'planet_6',
+      },
+      {
+        'list_number': '3',
+        'page': 't.cgi?t=m/fortune/result&amp;menu_id=307&amp;zspid=wzappallas',
+        'menu_name': 'この時期訪れやすいチャンスや幸運',
+        'planet_move': '0',
+        'midoku': '0',
+        'read': '0',
+        'menu_id': '307',
+        'period': '<p><span class="ll-date__year">2018</span><span class="ll-date__month">11/8</span><span class="ll-date__year">2019</span><span class="ll-date__month">12/2</span></p>',
+        'image_pickup': 'planet_6',
+      },
+      {
+        'list_number': '2',
+        'page': 't.cgi?t=m/fortune/result&amp;menu_id=301&amp;zspid=wzappallas',
+        'menu_name': '今のあなたの運勢とテーマ',
+        'planet_move': '0',
+        'midoku': '0',
+        'read': '0',
+        'menu_id': '301',
+        'period': '<p><span class="ll-date__year">2018</span><span class="ll-date__month">11/6</span><span class="ll-date__year">2018</span><span class="ll-date__month">12/8</span></p>',
+        'image_pickup': 'planet_4',
+      },
+      {
+        'list_number': '2',
+        'page': 't.cgi?t=m/fortune/result&amp;menu_id=303&amp;zspid=wzappallas',
+        'menu_name': '仕事では何をするのに適したとき？',
+        'planet_move': '0',
+        'midoku': '0',
+        'read': '0',
+        'menu_id': '303',
+        'period': '<p><span class="ll-date__year">2018</span><span class="ll-date__month">11/6</span><span class="ll-date__year">2018</span><span class="ll-date__month">12/8</span></p>',
+        'image_pickup': 'planet_4',
+      },
+      {
+        'list_number': '2',
+        'page': 't.cgi?t=m/fortune/result&amp;menu_id=311&amp;zspid=wzappallas',
+        'menu_name': '今のスランプ状態から抜け出すには？',
+        'planet_move': '0',
+        'midoku': '0',
+        'read': '0',
+        'menu_id': '311',
+        'period': '<p><span class="ll-date__year">2018</span><span class="ll-date__month">11/6</span><span class="ll-date__year">2018</span><span class="ll-date__month">12/8</span></p>',
+        'image_pickup': 'planet_4',
+      },
+      {
+        'list_number': '1',
+        'page': 't.cgi?t=m/fortune/result&amp;menu_id=304&amp;zspid=wzappallas',
+        'menu_name': 'これからの対人運は？',
+        'planet_move': '0',
+        'midoku': '1',
+        'read': '1',
+        'menu_id': '304',
+        'period': '<p><span class="ll-date__year">2018</span><span class="ll-date__month">10/19</span><span class="ll-date__year">2018</span><span class="ll-date__month">12/26</span></p>',
+        'image_pickup': 'planet_2',
+      },
+      {
+        'list_number': '3',
+        'page': 't.cgi?t=m/fortune/result&amp;menu_id=309&amp;zspid=wzappallas',
+        'menu_name': 'この時期起こりうる試練',
+        'planet_move': '0',
+        'midoku': '1',
+        'read': '1',
+        'menu_id': '309',
+        'period': '<p><span class="ll-date__year">2017</span><span class="ll-date__month">12/20</span><span class="ll-date__year">2020</span><span class="ll-date__month">3/21</span></p>',
+        'image_pickup': 'planet_7',
+      },
+      {
+        'list_number': '3',
+        'page': 't.cgi?t=m/fortune2/result&amp;menu_id=401&amp;zspid=wzappallas',
+        'menu_name': '今期のあなたの心理と大切な裏テーマ',
+        'planet_move': '0',
+        'midoku': '1',
+        'read': '1',
+        'menu_id': '401',
+        'period': '<p><span class="ll-date__year">2017</span><span class="ll-date__month">12/2</span><span class="ll-date__year">2019</span><span class="ll-date__month">8/23</span></p>',
+        'image_pickup': 'planet_1',
+      },
+      {
+        'list_number': '3',
+        'page': 't.cgi?t=m/fortune2/result&amp;menu_id=402&amp;zspid=wzappallas',
+        'menu_name': 'ここ半年以上、不調続き。どう過ごせば改善できる？',
+        'planet_move': '0',
+        'midoku': '1',
+        'read': '1',
+        'menu_id': '402',
+        'period': '<p><span class="ll-date__year">2017</span><span class="ll-date__month">12/2</span><span class="ll-date__year">2019</span><span class="ll-date__month">8/23</span></p>',
+        'image_pickup': 'planet_1',
+      },
+      {
+        'list_number': '3',
+        'page': 't.cgi?t=m/fortune2/result&amp;menu_id=403&amp;zspid=wzappallas',
+        'menu_name': '大きく変わってしまったあの人。今のあの人の心境は？',
+        'planet_move': '0',
+        'midoku': '1',
+        'read': '1',
+        'menu_id': '403',
+        'period': '<p><span class="ll-date__year">2017</span><span class="ll-date__month">8/27</span><span class="ll-date__year">2019</span><span class="ll-date__month">8/4</span></p>',
+        'image_pickup': 'planet_1',
+      },
+      {
+        'list_number': '3',
+        'page': 't.cgi?t=m/fortune/result&amp;menu_id=310&amp;zspid=wzappallas',
+        'menu_name': 'この時期試練を克服するためには',
+        'planet_move': '0',
+        'midoku': '1',
+        'read': '1',
+        'menu_id': '310',
+        'period': '<p><span class="ll-date__year">2016</span><span class="ll-date__month">11/23</span><span class="ll-date__year">2019</span><span class="ll-date__month">3/31</span></p>',
+        'image_pickup': 'planet_7',
+      },
     ],
   },
   methods: {
-    llContentNewFlag: function(read, planet) {
-      if (read == 1 && planet == 0) {
-        return false
-      } else if (read == 0 || planet == 1) {
-        return true
-      } else {
-        return
-      }
-    },
-    llContentReadFlag: function(read) {
-      if (read == 1) {
-        return true
-      } else {
-        return false
-      }
-    },
     llContentArea: function(index) {
       if( index == 0 ) {
         return 'bg-new';
@@ -458,8 +355,6 @@ new Vue({
       } else if ( index == 2 ) {
         return '<span>～一ヶ月から数ヶ月～</span>';
       } else if ( index == 3 ) {
-        return '<span>～年間〜</span>';
-      } else if ( index == 4 ){
         return '<span>～数ヶ月から半年以上～</span>';
       } else {
         return
@@ -481,6 +376,34 @@ new Vue({
         return 'bg-read';
       } else {
         return
+      }
+    },
+    llContentListFlagPlanet: function(planet, pickup) {
+      if( planet == 1 && pickup != 'planet_none') {
+        return true
+      } else {
+        return false
+      }
+    },
+    llContentListFlagRead: function(index, pickup) {
+      if( index == 0 && pickup != 'planet_none') {
+        return true
+      } else {
+        return false
+      }
+    },
+    llContentListFlagnoRead: function(index, pickup) {
+      if( index == 1 && pickup != 'planet_none') {
+        return true
+      } else {
+        return false
+      }
+    },
+    llContentList: function(index, key, pickup) {
+      if( index == key && pickup != 'planet_none') {
+        return true
+      } else {
+        return false
       }
     },
   }
