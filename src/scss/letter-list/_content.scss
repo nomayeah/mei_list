@@ -32,8 +32,10 @@
       height: 84px;
       color: #4f4f4f;
       position: relative;
+      font-weight: 700;
       &.bg-read {
         background-color: #F2F2F2;
+        font-weight: 100;
       }
     }
     &.cate-short{border-color: #9686D4;}
