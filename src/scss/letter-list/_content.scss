@@ -29,7 +29,7 @@
       padding: 42px 16px 16px 16px;
       font-size: 14px;
       text-decoration: none;
-      height: 90px;
+      height: 84px;
       color: #4f4f4f;
       position: relative;
       &.bg-read {
@@ -165,11 +165,5 @@
     .cate-prog &{
       background-image: url("/image/bgimg/planet_bg_long.sp.480.png");
     }
-  }
-}
-
-@media (min-width:320px) and (max-width:374px){
-  .ll-content__area {
-    padding: 5px;
   }
 }
