@@ -23,14 +23,23 @@
 </head>
 <body>
 <main>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-62171329-19"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-62171329-19');
+</script>
 
 <section>
   <div id="js-letterList" class="ll-body">
     <div class="ll-tab">
-      <div><div class="ll-tab__item ll-tab__new">新着</div></div>
-      <div><div class="ll-tab__item ll-tab__short">短期</div></div>
-      <div><div class="ll-tab__item ll-tab__long">中期</div></div>
-      <div><div class="ll-tab__item ll-tab__year">長期<br></div></div>
+      <div><div class="ll-tab__item ll-tab__new" v-on:click="llContentGA('pickup_carousel_test', 'click_test', 'MtopUnseiNew')">新着</div></div>
+      <div><div class="ll-tab__item ll-tab__short" v-on:click="llContentGA('pickup_carousel_test', 'click_test', 'MtopUnseiShort')">短期</div></div>
+      <div><div class="ll-tab__item ll-tab__long" v-on:click="llContentGA('pickup_carousel_test', 'click_test', 'MtopUnseiMiddle')">中期</div></div>
+      <div><div class="ll-tab__item ll-tab__year" v-on:click="llContentGA('pickup_carousel_test', 'click_test', 'MtopUnseiLong')">長期</div></div>
     </div>
     <div class="ll-content"><!-- 新着と短期中期と長期は出力方法が違う -->
       <div v-for="( loop, index ) in 4" :class="llContentArea(index)">
@@ -38,7 +47,7 @@
           <div class="ll-content__title" v-html="llContentTitle(index)"></div>
           <ul v-if="index == 0"><!-- 新着 -->
             <li class="ll-content__item" v-for="( item, key ) in list" v-if="llContentListFlagPlanet(item.planet_move, item.image_pickup)" :class="llContentCategory(item.list_number)">
-              <a :href="item.page" :class="llContentRead(item.midoku)">
+              <a :href="item.page" :class="llContentRead(item.midoku)" v-on:click="llContentGA('pickup_carousel_test', 'click_test', Number(item.menu_id))">
                 <div class="ll-content__date" v-html="item.period"></div>
                 <div class="ll-content__text">
                   <span>{{ item.menu_name }}</span>
@@ -53,7 +62,7 @@
               </a>
             </li>
             <li class="ll-content__item" v-for="( item, key ) in list" v-if="llContentListFlagRead(item.midoku, item.image_pickup)" :class="llContentCategory(item.list_number)">
-              <a :href="item.page" :class="llContentRead(item.midoku)">
+              <a :href="item.page" :class="llContentRead(item.midoku)" v-on:click="llContentGA('pickup_carousel_test', 'click_test', Number(item.menu_id))">
                 <div class="ll-content__date" v-html="item.period"></div>
                 <div class="ll-content__text">
                   <span>{{ item.menu_name }}</span>
@@ -68,7 +77,7 @@
               </a>
             </li>
             <li class="ll-content__item" v-for="( item, key ) in list" v-if="llContentListFlagnoRead(item.midoku, item.image_pickup)" :class="llContentCategory(item.list_number)">
-              <a :href="item.page" :class="llContentRead(item.midoku)">
+              <a :href="item.page" :class="llContentRead(item.midoku)" v-on:click="llContentGA('pickup_carousel_test', 'click_test', Number(item.menu_id))">
                 <div class="ll-content__date" v-html="item.period"></div>
                 <div class="ll-content__text">
                   <span>{{ item.menu_name }}</span>
@@ -85,7 +94,7 @@
           </ul>
           <ul v-else><!-- 短期、中期、長期 -->
             <li class="ll-content__item" v-for="( item, key ) in list"  v-if="llContentList(item.list_number, index, item.image_pickup)" :class="llContentCategory(item.list_number)">
-              <a :href="item.page" :class="llContentRead(item.midoku)">
+              <a :href="item.page" :class="llContentRead(item.midoku)" v-on:click="llContentGA('pickup_carousel_test', 'click_test', Number(item.menu_id))">
                 <div class="ll-content__date" v-html="item.period"></div>
                 <div class="ll-content__text">
                   <span>{{ item.menu_name }}</span>
@@ -405,6 +414,16 @@ new Vue({
       } else {
         return false
       }
+    },
+    llContentGA: function(cate, action, label) {
+      let labelName
+      if (typeof label == 'number') {
+        labelName = 'menu_id_' + label
+      } else {
+        labelName = label
+      }
+      return ga('send','event', `'${cate}', '${action}', '${labelName}'`)
+      // return console.log(cate, action, labelName)
     },
   }
 });
