@@ -422,7 +422,7 @@ new Vue({
       } else {
         labelName = label
       }
-      return ga('send','event', `'${cate}', '${action}', '${labelName}'`)
+      return ga('send','event', `${cate}`, `${action}`, `${labelName}`)
       // return console.log(cate, action, labelName)
     },
   }
